@@ -78,7 +78,7 @@ public class EmpresaController extends HttpServlet {
         }
         request.setAttribute("listaEmpresas", listaEmpresas);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/portais/empresa_lista.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/lista.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -93,8 +93,8 @@ public class EmpresaController extends HttpServlet {
     
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("empresa", getEmpresas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/portais/empresa_formulario.jsp");
+        request.setAttribute("empresa", null);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -103,7 +103,7 @@ public class EmpresaController extends HttpServlet {
         String cnpj = (request.getParameter("cnpj"));
         Empresa empresa = dao.get(cnpj);
         request.setAttribute("empresa", empresa);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/portais/empresa_formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -119,7 +119,7 @@ public class EmpresaController extends HttpServlet {
         String cidade = request.getParameter("cidade");
         Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
         dao.insert(empresa);
-        response.sendRedirect("empresa_lista");
+        response.sendRedirect("lista");
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response)
@@ -136,7 +136,7 @@ public class EmpresaController extends HttpServlet {
         
         Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
         dao.update(empresa);
-        response.sendRedirect("empresa_lista");
+        response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
@@ -145,6 +145,6 @@ public class EmpresaController extends HttpServlet {
 
         Empresa empresa = new Empresa(cnpj);
         dao.delete(empresa);
-        response.sendRedirect("empresa_lista");
+        response.sendRedirect("lista");
     }
 }

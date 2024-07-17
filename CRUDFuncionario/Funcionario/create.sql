@@ -1,15 +1,18 @@
-drop database if exists T5;
+drop database if exists DSW;
 
-create database T5;
+create database DSW;
 
-use T5;
+use DSW;
 
-create table Empresa(cnpj varchar(18) not null, nome varchar(256) not null, email varchar(256), senha varchar(256), descricao varchar(256), cidade varchar(256), primary key (cnpj));
+create table Empresa(cnpj varchar(18) not null, nome varchar(256) not null, descricao varchar(256), email varchar(256), senha varchar(256), cidade varchar(256), primary key (cnpj));
 
-create table Vaga(id bigint not null auto_increment, funcao varchar(256) not null, nivel varchar(256) not null, anosContrato integer not null, salario float not null, empresa_cnpj varchar(18) not null, primary key (id), foreign key (empresa_cnpj) references Empresa(cnpj));
+create table Vaga(id bigint not null auto_increment, funcao varchar(256) not null, nivel varchar(256) not null, anosContrato integer not null, salario float not null, empresa_cnpj varchar(256), primary key (id), foreign key (empresa_cnpj) references Empresa(cnpj));
 
-insert into Empresa(cnpj, nome, descricao) values  ('12.345.678/0008-99', 'Barbearia do Jose', 'A melhor barbearia da cidade');
-insert into Empresa(cnpj, nome, descricao) values  ('12.456.111/0002-12', 'Tecnomagia', 'Empresa de tecnologia');
+create table Profissional(cpf varchar(14) not null, nome varchar(256) not null, email varchar(256) not null, senha varchar(16) not null, telefone varchar(10) not null, sexo varchar(256) not null, dataNasc varchar(10) not null, primary key (cpf));
+
+
+insert into Empresa(cnpj, nome) values  ('12.345.678/0008-99', 'Barbearia do Jose');
+insert into Empresa(cnpj, nome) values  ('12.456.111/0002-12', 'Tecnomagia');
 insert into Empresa(cnpj, nome) values  ('11.115.228/2228-11', 'Escola Fulaninho');
 
 insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('Barbeiro', 'Avançado', 2, 2500, '12.345.678/0008-99');
