@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -6,10 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.ufscar.dc.dsw</groupId>
-	<artifactId>Portal</artifactId>
+	<artifactId>VagasOnline</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Portal</name>
+	<name>VagasOnline</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

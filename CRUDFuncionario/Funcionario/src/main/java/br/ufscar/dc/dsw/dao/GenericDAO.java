@@ -32,7 +32,7 @@ abstract public class GenericDAO {
     	
     	/* Conexão banco de dados MySQL */
     	
-    	String url = "jdbc:mysql://localhost:3306/Livraria";
+    	String url = "jdbc:mysql://localhost:3306/DSW";
     	
     	return DriverManager.getConnection(url, "root", "root");
     }

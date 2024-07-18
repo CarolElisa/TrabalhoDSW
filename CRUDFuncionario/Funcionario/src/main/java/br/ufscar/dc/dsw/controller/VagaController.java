@@ -74,7 +74,7 @@ public class VagaController extends HttpServlet {
         List<Vaga> listaVagas = dao.getAll();
         request.setAttribute("listaVagas", listaVagas);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/portais/lista.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vagas/lista.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -89,7 +89,7 @@ public class VagaController extends HttpServlet {
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("empresas", getEmpresas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/portais/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vagas/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -99,7 +99,7 @@ public class VagaController extends HttpServlet {
         Vaga vaga = dao.get(id);
         request.setAttribute("vaga", vaga);
         request.setAttribute("empresas", getEmpresas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/portais/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vagas/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
