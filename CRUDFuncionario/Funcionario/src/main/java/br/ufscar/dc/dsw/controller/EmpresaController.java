@@ -6,9 +6,7 @@ import br.ufscar.dc.dsw.domain.Empresa;
 
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +70,7 @@ public class EmpresaController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         List<Empresa> listaEmpresas = new EmpresaDAO().getAll();
-        System.out.println("Number of companies: " + listaEmpresas.size());
+        
         for (Empresa empresa : listaEmpresas) {
             System.out.println(empresa.getCnpj() + " - " + empresa.getEmail()+ " - " + empresa.getSenha()+ " - " + empresa.getCidade()+ " - " + empresa.getDescricao()+ " - " + empresa.getNome());
         }
@@ -80,15 +78,6 @@ public class EmpresaController extends HttpServlet {
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/lista.jsp");
         dispatcher.forward(request, response);
-    }
-
-
-    private Map<String, String> getEmpresas() {
-        Map <String,String> empresas = new HashMap<>();
-        for (Empresa empresa: new EmpresaDAO().getAll()) {
-            empresas.put(empresa.getCnpj(), empresa.getNome());
-        }
-        return empresas;
     }
     
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
