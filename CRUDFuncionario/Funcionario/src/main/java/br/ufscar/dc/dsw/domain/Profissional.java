@@ -3,23 +3,29 @@ package br.ufscar.dc.dsw.domain;
 public class Profissional {
 
     private String cpf;
+    private String nome;
+    private String email;
+    private String senha;
     private String telefone;
     private String sexo;
-    private String dataDeNascimento;
+    private String dataNasc;
  
 
     public Profissional(String cpf) {
         this.cpf = cpf;
     }
 
-    public Profissional(String telefone, String sexo, String dataDeNascimento) {
+    public Profissional(String nome, String email, String senha, String telefone, String sexo, String dataNasc) {
+        this.nome = nome;
+        this.email = email;       
+        this.senha = senha;
         this.telefone = telefone;
         this.sexo = sexo;
-        this.dataDeNascimento = dataDeNascimento;
+        this.dataNasc = dataNasc;
     }
 
-    public Profissional(String cpf, String telefone, String sexo, String dataDeNascimento) {
-        this(telefone, sexo, dataDeNascimento);
+    public Profissional(String nome, String email, String senha, String cpf, String telefone, String sexo, String dataNasc) {
+        this(nome, email, senha, telefone, sexo, dataNasc);
         this.cpf = cpf;
     }
 
@@ -29,6 +35,30 @@ public class Profissional {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getTelefone() {
@@ -47,11 +77,11 @@ public class Profissional {
         this.sexo = sexo;
     }
 
-    public String getDatadenascimento() {
-        return dataDeNascimento;
+    public String getDatanasc() {
+        return dataNasc;
     }
 
-    public void setDatadenascimento(String dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
+    public void setDatanasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
 }

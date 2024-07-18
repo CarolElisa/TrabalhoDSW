@@ -94,8 +94,9 @@ public class ProfissionalController extends HttpServlet {
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cpf = request.getParameter("cpf");
-        request.setAttribute("profissionais", getProfissional());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/formulario.jsp");
+        Profissional profissional = dao.get(cpf);
+        request.setAttribute("profissional", profissional);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/livro/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -104,11 +105,14 @@ public class ProfissionalController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         
         String cpf = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");        
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
         String dataDeNascimento = request.getParameter("dataDeNascimento");
        
-        Profissional profissional = new Profissional(cpf, telefone, sexo, dataDeNascimento);
+        Profissional profissional = new Profissional(cpf, nome, email, senha, telefone, sexo, dataDeNascimento);
         
         dao.insert(profissional);
         response.sendRedirect("lista");
@@ -119,11 +123,14 @@ public class ProfissionalController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String cpf = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");        
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
         String dataDeNascimento = request.getParameter("dataDeNascimento");
        
-        Profissional profissional = new ProfissionalDAO().get(cpf);
+        Profissional profissional = new Profissional(cpf, nome, email, senha, telefone, sexo, dataDeNascimento);
         
         dao.insert(profissional);
         response.sendRedirect("lista");
