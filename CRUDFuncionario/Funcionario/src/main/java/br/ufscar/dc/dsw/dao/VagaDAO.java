@@ -40,7 +40,11 @@ public class VagaDAO extends GenericDAO {
 
         List<Vaga> listaVagas= new ArrayList<>();
 
-        String sql = "SELECT * from Vaga v, Empresa e where v.EMPRESA_cnpj = e.cnpj order by v.id";
+        String sql = "SELECT usu.id as usuario, e.*, v.* FROM VAGA V\n" + 
+        "JOIN EMPRESA E\n" + 
+        "ON E.CNPJ = V.EMPRESA_CNPJ\n" + 
+        "JOIN USUARIO USU\n" + 
+        "ON USU.DOCUMENTO = E.CNPJ\n";
 
         try {
             Connection conn = this.getConnection();
@@ -48,7 +52,7 @@ public class VagaDAO extends GenericDAO {
 
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Long id = resultSet.getLong("id");
+                Long id = resultSet.getLong("usuario");
                 String titulo = resultSet.getString("funcao");
                 String autor = resultSet.getString("nivel");
                 int ano = resultSet.getInt("anosContrato");
@@ -59,11 +63,53 @@ public class VagaDAO extends GenericDAO {
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String cidade = resultSet.getString("cidade");
-                Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+                Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
                 Vaga vaga = new Vaga(id, titulo, autor, ano, preco, empresa);
                 listaVagas.add(vaga);
             }
 
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaVagas;
+    }
+
+    public List<Vaga> getPorEmpresa(String CNPJ)
+    {
+        List<Vaga> listaVagas= new ArrayList<>();
+        
+        String sql = "SELECT usu.id as usuario, e.*, v.* FROM VAGA V\n" + 
+                        "JOIN EMPRESA E\n" + 
+                        "ON E.CNPJ = V.EMPRESA_CNPJ\n" + 
+                        "JOIN USUARIO USU\n" + 
+                        "ON USU.DOCUMENTO = E.CNPJ\n" + 
+                        "WHERE E.CNPJ = '" + CNPJ + "'";
+
+        try {
+            Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("usuario");
+                String titulo = resultSet.getString("funcao");
+                String autor = resultSet.getString("nivel");
+                int ano = resultSet.getInt("anosContrato");
+                float preco = resultSet.getFloat("salario");
+                String cnpj = resultSet.getString("cnpj");
+                String nome = resultSet.getString("nome");
+                String descricao = resultSet.getString("descricao");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String cidade = resultSet.getString("cidade");
+                Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
+                Vaga vaga = new Vaga(id, titulo, autor, ano, preco, empresa);
+                listaVagas.add(vaga);
+            }
+            
             resultSet.close();
             statement.close();
             conn.close();
@@ -91,6 +137,7 @@ public class VagaDAO extends GenericDAO {
     }
 
     public void update(Vaga vaga) {
+        
         String sql = "UPDATE Vaga SET funcao = ?, nivel = ?, anosContrato = ?, salario = ?";
         sql += ", empresa_cnpj = ? WHERE id = ?";
 
@@ -115,14 +162,14 @@ public class VagaDAO extends GenericDAO {
 
     public Vaga get(Long id) {
         Vaga vaga = null;
-
+        
         String sql = "SELECT * from Vaga v, Empresa e where v.id = ? and v.EMPRESA_CNPJ = e.Cnpj";
 
         try {
 
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-
+            
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

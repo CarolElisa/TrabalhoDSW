@@ -1,6 +1,6 @@
 package br.ufscar.dc.dsw.domain;
 
-public class Empresa {
+public class Empresa extends Usuario{
 
     private String cnpj;
     private String nome;
@@ -9,16 +9,19 @@ public class Empresa {
     private String senha;
     private String cidade;
 
-    public Empresa(String cnpj) {
+    public Empresa(long id, String cnpj) {
+        super(id);
         this.cnpj = cnpj;
     }
 
-    public Empresa(String CNPJ, String nome) {
+    public Empresa(long id, String CNPJ, String nome) {
+        super(id);
         this.cnpj = CNPJ;
         this.nome = nome;
     }
 
-    public Empresa(String CNPJ, String nome, String descricao, String email, String senha, String cidade) {
+    public Empresa(Long id, String CNPJ, String nome, String descricao, String email, String senha, String cidade) {
+        super(id);
         this.descricao = descricao;
         this.cnpj = CNPJ;
         this.nome = nome;

@@ -14,7 +14,7 @@ public class EmpresaDAO extends GenericDAO {
 
     public List<Empresa> getAll() {
         List<Empresa> listaEmpresas = new ArrayList<>();
-        String sql = "SELECT * from Empresa order by nome";
+        String sql = "SELECT u.id, e.* from Empresa e join usuario u on u.documento = e.cnpj order by nome ";
     
         try {
             Connection conn = this.getConnection();
@@ -22,13 +22,14 @@ public class EmpresaDAO extends GenericDAO {
             ResultSet resultSet = statement.executeQuery(sql);
     
             while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
                 String cnpj = resultSet.getString("cnpj");
                 String nome = resultSet.getString("nome");
                 String descricao = resultSet.getString("descricao");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String cidade = resultSet.getString("cidade");
-                Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+                Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
                 listaEmpresas.add(empresa);
             }
     
@@ -45,22 +46,22 @@ public class EmpresaDAO extends GenericDAO {
     public Empresa get(String x) {
         Empresa empresa = null;
         
-        String sql = "SELECT * from Empresa where cnpj = ?";
+        String sql = "SELECT u.id as user, e.* from Empresa e join Usuario u on u.documento = e.cnpj where cnpj = '" + x + "'";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
             
-            statement.setString(1, x);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                Long id = resultSet.getLong("user");
                 String cnpj = resultSet.getString("cnpj");
                 String nome = resultSet.getString("nome");
                 String descricao = resultSet.getString("descricao");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
                 String cidade = resultSet.getString("cidade");
-                empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+                empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
             }
 
             resultSet.close();

@@ -1,9 +1,9 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.EmpresaDAO;
-
 import br.ufscar.dc.dsw.domain.Empresa;
-
+import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.util.Erro;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,14 +28,32 @@ public class EmpresaController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
+            throws ServletException, IOException {
         doGet(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
-                
+            throws ServletException, IOException {
+        
+        
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		Erro erros = new Erro();
+
+		if (usuario == null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		} else if (!usuario.getPapel().equals("ADMIN")) {
+			erros.add("Acesso não autorizado!");
+			erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			rd.forward(request, response);
+			return;
+		}
+
+
+
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -99,21 +117,21 @@ public class EmpresaController extends HttpServlet {
     private void insere(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+        Long id = Long.parseLong(request.getParameter("id"));
         String cnpj = request.getParameter("cnpj");
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String cidade = request.getParameter("cidade");
-        Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+        Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
         dao.insert(empresa);
         response.sendRedirect("lista");
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            Long id = Long.parseLong(request.getParameter("id"));     
             String cnpj = request.getParameter("cnpj");
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
@@ -123,16 +141,17 @@ public class EmpresaController extends HttpServlet {
 
         //Empresa empresa = new EmpresaDAO().get(empresaID);
         
-        Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+        Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
         dao.update(empresa);
         response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
         String cnpj = request.getParameter("cnpj");
 
-        Empresa empresa = new Empresa(cnpj);
+        Empresa empresa = new Empresa(id, cnpj);
         dao.delete(empresa);
         response.sendRedirect("lista");
     }
