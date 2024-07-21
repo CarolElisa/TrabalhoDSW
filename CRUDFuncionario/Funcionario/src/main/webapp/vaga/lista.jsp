@@ -51,7 +51,7 @@
 				<tr>
 					<td>${vaga.id}</td>
 					<td>${vaga.funcao}</td>
-					<td size="60">${vaga.empresa.nome}</td>
+					<td size="60">${vaga.empresaNome}</td>
 					<td>${vaga.nivel}</td>
 					<td>${vaga.anosContrato}</td>
 					<td>${vaga.salario}</td>
@@ -70,6 +70,10 @@
 								<a
 								href="/${requestScope.contextPath}/vagas/edicao?id=${vaga.id}">Editar
 									</a>
+									<a
+								href="/${requestScope.contextPath}/vagas/remocao?id=${vaga.id}"
+								onclick="return confirm('Tem certeza de que deseja excluir este item?');">
+									Remover </a>
 							</c:when>
 							<c:when test="${tipoUser == 'funcionario'}">
 								<a

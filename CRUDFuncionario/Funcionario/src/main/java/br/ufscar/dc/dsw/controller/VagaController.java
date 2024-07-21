@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.EmpresaDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.dao.VagaDAO;
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Vaga;
@@ -37,10 +38,10 @@ public class VagaController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+/*
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 		Erro erros = new Erro();
-/* 
+ 
 		if (usuario == null) {
 			response.sendRedirect(request.getContextPath());
 			return;
@@ -87,7 +88,7 @@ public class VagaController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Vaga> listaVagas = null;
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
-        System.out.println("LISTARRRR: |" + usuario.getPapel() + "|"); 
+        System.err.println("DOCUMENTO POR EMPRESA: " + usuario.getPapel());
         if(usuario.getPapel().equals("ADMIN"))
         {
             listaVagas = dao.getAll();
@@ -98,8 +99,9 @@ public class VagaController extends HttpServlet {
         }
         else if(usuario.getPapel().equals("EMPR"))
         {
-            System.out.println("CNPJ: " + usuario.getEmpresa().getCnpj());
-            listaVagas = dao.getPorEmpresa(usuario.getEmpresa().getCnpj());
+            
+            listaVagas = dao.getPorEmpresa(usuario.getDocumento());
+            
         }
         
         
@@ -117,9 +119,31 @@ public class VagaController extends HttpServlet {
         return empresas;
     }
 
+    private Map<String, String> getEmpresaEspecifica(String cnpj) {
+        Map<String, String> empresas = new HashMap<>();
+        for (Empresa empresa : new EmpresaDAO().getEmpresaEspecifica(cnpj)) {
+            empresas.put(empresa.getCnpj(), empresa.getNome());
+        }
+        return empresas;
+    }
+
+
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("empresas", getEmpresas());
+            String tipoUser = (String) request.getSession().getAttribute("tipoUser");
+            String cnpj = (String) request.getSession().getAttribute("documento");
+            System.out.println("TIPO USER: " + tipoUser);
+        if(tipoUser.equals("empresa"))
+        {
+            
+            System.out.println("CNPJ:" + cnpj);
+            request.setAttribute("empresas", getEmpresaEspecifica(cnpj));
+        }
+        else
+        {
+            request.setAttribute("empresas", getEmpresas());
+        }
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -127,31 +151,32 @@ public class VagaController extends HttpServlet {
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Long id = Long.parseLong(request.getParameter("id"));
+            Long id = Long.parseLong(request.getParameter("id"));
+
+            Vaga vaga = dao.get(id);
         
-        Vaga vaga = dao.get(id);
+            request.setAttribute("vaga", vaga);
         
-        request.setAttribute("vaga", vaga);
+            request.setAttribute("empresas", getEmpresaEspecifica(vaga.getEmpresaCnpj()));
         
-        request.setAttribute("empresas", getEmpresas());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/formulario.jsp");
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/formulario.jsp");
-        
-        dispatcher.forward(request, response);
+            dispatcher.forward(request, response);
     }
 
     private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
-        String titulo = request.getParameter("titulo");
-        String autor = request.getParameter("autor");
-        Integer ano = Integer.parseInt(request.getParameter("ano"));
-        Float preco = Float.parseFloat(request.getParameter("preco"));
+        
+        String funcao = request.getParameter("funcao");
+        String nivel = request.getParameter("nivel");
+        Integer anosContrato = Integer.parseInt(request.getParameter("anosContrato"));
+        Float salario = Float.parseFloat(request.getParameter("salario"));
 
         String empresaCNPJ = request.getParameter("empresa");
+        
         Empresa empresa = new EmpresaDAO().get(empresaCNPJ);
 
-        Vaga vaga = new Vaga(titulo, autor, ano, preco, empresa);
+        Vaga vaga = new Vaga(funcao, nivel, anosContrato, salario, empresa.getCnpj(), empresa.getNome());
         dao.insert(vaga);
         response.sendRedirect("lista");
     }
@@ -161,10 +186,10 @@ public class VagaController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         Long id = Long.parseLong(request.getParameter("id"));
-        String titulo = request.getParameter("titulo");
-        String autor = request.getParameter("autor");
-        Integer ano = Integer.parseInt(request.getParameter("ano"));
-        Float preco = Float.parseFloat(request.getParameter("preco"));
+        String titulo = request.getParameter("funcao");
+        String autor = request.getParameter("nivel");
+        Integer ano = Integer.parseInt(request.getParameter("anosContrato"));
+        Float preco = Float.parseFloat(request.getParameter("salario"));
 
         String empresaCNPJ = request.getParameter("empresa");
         Empresa empresa = new EmpresaDAO().get(empresaCNPJ);

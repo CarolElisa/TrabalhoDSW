@@ -44,6 +44,8 @@
 					<th><fmt:message key="user.password" /></th>
 					<th><fmt:message key="user.name" /></th>
 					<th><fmt:message key="user.role" /></th>
+					<th><fmt:message key="user.documento" /></th>
+					
 					<th><fmt:message key="actions.link" /></th>
 				</tr>
 				<c:forEach var="usuario" items="${requestScope.listaUsuarios}">
@@ -53,6 +55,7 @@
 						<td><c:out value="${usuario.senha}" /></td>
 						<td><c:out value="${usuario.nome}" /></td>
 						<td><c:out value="${usuario.papel}" /></td>
+						<td><c:out value="${usuario.documento}"/></td>
 						<td><a
 							href="/${sessionScope.contextPath}/usuarios/edicao?id=<c:out value='${usuario.id}' />">
 								<fmt:message key="users.update" />

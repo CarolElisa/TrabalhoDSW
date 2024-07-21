@@ -41,9 +41,16 @@
 		<td>
 			<select name="papel">
 				<option value="ADMIN" ${usuario.papel == "ADMIN" ? 'selected="selected"' : ''}>ADMIN</option>
-				<option value="USER" ${usuario.papel == "USER" ? 'selected="selected"' : ''}>USER</option>
+				<option value="EMPR" ${usuario.papel == "EMPR" ? 'selected="selected"' : ''}>EMPR</option>
+				<option value="USER" ${usuario.papel == "FUNC" ? 'selected="selected"' : ''}>FUNC</option>
 			</select>			
 		</td>
+	</tr>
+	<tr>
+		<td><label for="documento"><fmt:message key="user.documento" />
+		</label></td>
+		<td><input type="text" name="documento" size="20" required
+			value="<c:out value='${usuario.documento}' />" /></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center"><input type="submit"

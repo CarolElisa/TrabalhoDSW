@@ -14,8 +14,9 @@ import br.ufscar.dc.dsw.domain.Usuario;
 public class UsuarioDAO extends GenericDAO {
 
     public void insert(Usuario usuario) {
+        
+        String sql = "INSERT INTO Usuario (nome, login, senha, papel, documento) VALUES (?, ?, ?, ?, ?)";
 
-        String sql = "INSERT INTO Usuario (nome, login, senha, papel) VALUES (?, ?, ?, ?)";
 
         try {
             Connection conn = this.getConnection();
@@ -26,6 +27,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(2, usuario.getLogin());
             statement.setString(3, usuario.getSenha());
             statement.setString(4, usuario.getPapel());
+            statement.setString(5, usuario.getDocumento());
             statement.executeUpdate();
 
             statement.close();
@@ -52,7 +54,8 @@ public class UsuarioDAO extends GenericDAO {
                 String login = resultSet.getString("login");
                 String senha = resultSet.getString("senha");
                 String papel = resultSet.getString("papel");
-                Usuario usuario = new Usuario(id, nome, login, senha, papel);
+                String documento = resultSet.getString("documento");
+                Usuario usuario = new Usuario(id, nome, login, senha, papel, documento);
                 listaUsuarios.add(usuario);
             }
 
@@ -82,7 +85,7 @@ public class UsuarioDAO extends GenericDAO {
     }
 
     public void update(Usuario usuario) {
-        String sql = "UPDATE Usuario SET nome = ?, login = ?, senha = ?, papel = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET nome = ?, login = ?, senha = ?, papel = ?, documento = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -92,7 +95,8 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(2, usuario.getLogin());
             statement.setString(3, usuario.getSenha());
             statement.setString(4, usuario.getPapel());
-            statement.setLong(5, usuario.getId());
+            statement.setString(5, usuario.getDocumento());
+            statement.setLong(6, usuario.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -118,8 +122,9 @@ public class UsuarioDAO extends GenericDAO {
                 String login = resultSet.getString("login");
                 String senha = resultSet.getString("senha");
                 String papel = resultSet.getString("papel");
+                String documento = resultSet.getString("documento");
 
-                usuario = new Usuario(id, nome, login, senha, papel);
+                usuario = new Usuario(id, nome, login, senha, papel, documento);
             }
 
             resultSet.close();
@@ -128,14 +133,20 @@ public class UsuarioDAO extends GenericDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
         return usuario;
     }
     
+
+
+
+
     public Usuario getbyLogin(String login) {
         Usuario usuario = null;
 
-        String sql = "SELECT * from Usuario u join Empresa e on e.cnpj = u.documento WHERE login = ?";
-
+        String sql = "SELECT * from Usuario WHERE login = ?";
+        //dados usuario geral
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -148,22 +159,18 @@ public class UsuarioDAO extends GenericDAO {
                 String nome = resultSet.getString("nome");
                 String senha = resultSet.getString("senha");
                 String papel = resultSet.getString("papel");
-
-                String cnpj = resultSet.getString("cnpj");
-                String nome_e = resultSet.getString("nome");
-                String descricao = resultSet.getString("descricao");
-                String email = resultSet.getString("email");
-                String senha_e = resultSet.getString("senha");
-                String cidade = resultSet.getString("cidade");
-
-                usuario = new Usuario(id, nome, login, senha, papel);
-                Empresa empresa = new Empresa(id, cnpj, nome_e, descricao, email, senha_e, cidade);
-                usuario.setEmpresa(empresa);
+                String documento = resultSet.getString("documento");
+                if(documento == null)
+                {
+                    documento = "admin";
+                }
+                usuario = new Usuario(id, nome, login, senha, papel, documento);
             }
 
             resultSet.close();
             statement.close();
             conn.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

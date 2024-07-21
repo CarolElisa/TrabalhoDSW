@@ -7,25 +7,27 @@ public class Vaga {
     private String nivel;
     private Integer anosContrato;
     private Float salario;
-    private Empresa empresa;
-
+    private String empresaCnpj;
+    private String empresaNome;
     public Vaga(Long id) {
         this.id = id;
     }
 
     public Vaga(String func, String nv, Integer ano, Float slr,
-            Empresa emp) {
+            String cnpj, String empNome) {
         this.funcao = func;
         this.nivel = nv;
         this.anosContrato = ano;
         this.salario = slr;
-        this.empresa = emp;
+        this.empresaCnpj = cnpj;
+        this.empresaNome = empNome;
+
     }
 
       
     public Vaga(Long id, String funcao, String nivel, Integer ano, 
             Float salario, Empresa empresa) {
-        this(funcao, nivel, ano, salario, empresa);
+        this(funcao, nivel, ano, salario, empresa.getCnpj(), empresa.getNome());
         this.id = id;
     }
     
@@ -70,11 +72,23 @@ public class Vaga {
         this.salario = salario;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public String getEmpresaCnpj() {
+        return empresaCnpj;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setEmpresaCnpj(Empresa empresa) {
+        this.empresaCnpj = empresa.getCnpj();
     }
+
+    public String getEmpresaNome() {
+        return empresaNome;
+    }
+
+    public void setEmpresaNome(Empresa empresa) {
+        this.empresaNome = empresa.getCnpj();
+    }
+
+
+
+
 }

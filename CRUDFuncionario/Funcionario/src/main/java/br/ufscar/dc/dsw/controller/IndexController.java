@@ -38,12 +38,13 @@ public class IndexController extends HttpServlet {
 						request.getSession().setAttribute("usuarioLogado", usuario);
 						String contextPath = request.getContextPath().replace("/", "");
 						request.getSession().setAttribute("contextPath", contextPath);
-						System.out.println(usuario.getPapel());
+						
 						if (usuario.getPapel().equals("ADMIN")) {
 							request.getSession().setAttribute("tipoUser", "admin");
 							response.sendRedirect("usuarios/?contextPath=" + contextPath);
 						} else {
 							request.getSession().setAttribute("tipoUser", "empresa");
+							request.getSession().setAttribute("documento", usuario.getDocumento());
 							response.sendRedirect("vagas/?contextPath=" + contextPath);
 						}
 						return;

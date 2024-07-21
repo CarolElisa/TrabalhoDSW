@@ -112,8 +112,8 @@ public class UsuarioController extends HttpServlet {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		String papel = request.getParameter("papel");
-		
-		Usuario usuario = new Usuario(nome, login, senha, papel);
+		String documento = request.getParameter("documento");
+		Usuario usuario = new Usuario(nome, login, senha, papel, documento);
 
 		dao.insert(usuario);
 		response.sendRedirect("lista");
@@ -128,8 +128,9 @@ public class UsuarioController extends HttpServlet {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		String papel = request.getParameter("papel");
+		String documento = request.getParameter("documento");
 		
-		Usuario usuario = new Usuario(id, nome, login, senha, papel);
+		Usuario usuario = new Usuario(id, nome, login, senha, papel, documento);
 
 		dao.update(usuario);
 		response.sendRedirect("lista");

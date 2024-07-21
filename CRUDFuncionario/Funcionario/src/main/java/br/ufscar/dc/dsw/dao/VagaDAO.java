@@ -14,7 +14,7 @@ import br.ufscar.dc.dsw.domain.Vaga;
 public class VagaDAO extends GenericDAO {
 
     public void insert(Vaga vaga) {
-
+        
         String sql = "INSERT INTO Vaga (funcao, nivel, anosContrato, salario, empresa_cnpj) VALUES (?, ?, ?, ?, ?)";
 
         try {
@@ -25,10 +25,10 @@ public class VagaDAO extends GenericDAO {
             statement.setString(2, vaga.getNivel());
             statement.setInt(3, vaga.getAnosContrato());
             statement.setFloat(4, vaga.getSalario());
-            statement.setString(5, vaga.getEmpresa().getCnpj());
+            statement.setString(5, vaga.getEmpresaCnpj());
 
             statement.executeUpdate();
-
+            
             statement.close();
             conn.close();
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class VagaDAO extends GenericDAO {
     {
         List<Vaga> listaVagas= new ArrayList<>();
         
-        String sql = "SELECT usu.id as usuario, e.*, v.* FROM VAGA V\n" + 
+        String sql = "SELECT usu.id as usuario, e.nome as nomeEmpr, e.*, v.* FROM VAGA V\n" + 
                         "JOIN EMPRESA E\n" + 
                         "ON E.CNPJ = V.EMPRESA_CNPJ\n" + 
                         "JOIN USUARIO USU\n" + 
@@ -94,12 +94,13 @@ public class VagaDAO extends GenericDAO {
 
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Long id = resultSet.getLong("usuario");
+                Long id = resultSet.getLong("id");
                 String titulo = resultSet.getString("funcao");
                 String autor = resultSet.getString("nivel");
                 int ano = resultSet.getInt("anosContrato");
                 float preco = resultSet.getFloat("salario");
                 String cnpj = resultSet.getString("cnpj");
+                String emprNome = resultSet.getString("nomeEmpr");
                 String nome = resultSet.getString("nome");
                 String descricao = resultSet.getString("descricao");
                 String email = resultSet.getString("email");
@@ -137,20 +138,26 @@ public class VagaDAO extends GenericDAO {
     }
 
     public void update(Vaga vaga) {
-        
+        ;
         String sql = "UPDATE Vaga SET funcao = ?, nivel = ?, anosContrato = ?, salario = ?";
         sql += ", empresa_cnpj = ? WHERE id = ?";
-
+        
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-
+           
             statement.setString(1, vaga.getFuncao());
+            
             statement.setString(2, vaga.getNivel());
+            
             statement.setInt(3, vaga.getAnosContrato());
+            
             statement.setFloat(4, vaga.getSalario());
-            statement.setString(5, vaga.getEmpresa().getCnpj());
+            
+            statement.setString(5, vaga.getEmpresaCnpj());
+            
             statement.setLong(6, vaga.getId());
+            
             statement.executeUpdate();
 
             statement.close();
@@ -180,7 +187,6 @@ public class VagaDAO extends GenericDAO {
 
                 String empresaCNPJ = resultSet.getString("empresa_cnpj");
                 Empresa empresa = new EmpresaDAO().get(empresaCNPJ);
-
                 vaga = new Vaga(id, titulo, autor, ano, preco, empresa);
             }
 

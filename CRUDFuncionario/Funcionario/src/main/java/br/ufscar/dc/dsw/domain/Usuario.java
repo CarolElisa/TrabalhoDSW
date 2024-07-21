@@ -7,37 +7,40 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private String papel;
-	private Empresa empresa;
+	public String documento;
 
 
 	public Usuario(Long id) {
 		this.id = id;
 	}
 
-	public Usuario(String nome, String login, String senha, String papel) {
+	public Usuario(String nome, String login, String senha, String papel, String documento) {
 		super();
 		this.nome = nome;
 		this.login = login;
 		this.senha = senha;
 		this.papel = papel;
+		this.documento = documento;
 	}
 
-	public Usuario(Long id, String nome, String login, String senha, String papel) {
+	public Usuario(Long id, String nome, String login, String senha, String papel, String documento) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.login = login;
 		this.senha = senha;
 		this.papel = papel;
+		this.documento = documento;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
+	public String getDocumento() {
+		return documento;
 	}
 
-	public void setEmpresa(Empresa e) {
-		this.empresa = e;
+	public void setDocumento(String d) {
+		this.documento = d;
 	}
+
 
 	public Long getId() {
 		return id;

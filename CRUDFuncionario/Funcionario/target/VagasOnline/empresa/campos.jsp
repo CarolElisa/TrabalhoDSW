@@ -8,14 +8,43 @@
 	<caption>
 		<c:choose>
 			<c:when test="${empresa.nome == null}">
-                            Edição
-                        </c:when>
+				Cadastro
+            </c:when>
 			<c:otherwise>
-                            Cadastro
-                        </c:otherwise>
+                Edicao
+            </c:otherwise>
 		</c:choose>
 	</caption>
-	
+	<c:if test="${empresa != null}">
+		<input type="hidden" name="usuId" value="${usuario.id}" />
+	</c:if>
+	<tr>
+		<td><label for="nome"><fmt:message key="user.name" />
+		</label></td>
+		<td><input type="text" name="usuNome" size="45" required
+			value="<c:out value='${usuario.nome}' />" /></td>
+	</tr>
+	<tr>
+		<td><label for="login"><fmt:message key="user.login" />
+		</label></td>
+		<td><input type="text" name="usuLogin" size="20" required
+			value="<c:out value='${usuario.login}' />" /></td>
+	</tr>
+	<tr>
+		<td><label for="senha"><fmt:message key="user.password" />
+		</label></td>
+		<td><input type="text" name="usuSenha" size="20" required
+			value="<c:out value='${usuario.senha}' />" /></td>
+	</tr>
+	<tr>
+		<td><label for="papel"><fmt:message key="user.role" />
+		</label></td>
+		<td>
+			<select name="usuPapel">
+				<option value="USER" ${usuario.papel == "EMPR" ? 'selected="selected"' : ''}>EMPR</option>
+			</select>			
+		</td>
+	</tr>
 	<tr>
 
 		<tr>

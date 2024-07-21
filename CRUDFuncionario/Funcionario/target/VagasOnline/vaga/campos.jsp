@@ -30,13 +30,16 @@
 	</tr>
 	<tr>
 		<td><label for="empresa">Empresa</label></td>
-		<td><select id="empresa" name="empresa">
-				<c:forEach items="${empresas}" var="empresa">
-					<option value="${empresa.key}"
-						${vaga.empresa.nome==empresa.value ? 'selected' : '' }>
-						${empresa.value}</option>
+		<td>
+			<select id="empresa" name="empresa">
+				<c:forEach var="entry" items="${empresas}">
+					<option value="${entry.key}"
+						${vaga.empresaNome == entry.value ? 'selected' : ''}>
+						${entry.value}
+					</option>
 				</c:forEach>
-		</select></td>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td><label for="anosContrato">Anos Contrato</label></td>

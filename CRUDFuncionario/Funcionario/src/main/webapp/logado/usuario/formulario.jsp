@@ -16,11 +16,11 @@
 				<fmt:message key="users.welcome" />
 			</h1>
 			<h2>
-				<a href="/${sessionScope.contextPath}/editoras"> 
+				<a href="/${sessionScope.contextPath}/empresas"> 
 			    	<fmt:message key="publishers.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
-			    <a href="/${sessionScope.contextPath}/livros"> 
+			    <a href="/${sessionScope.contextPath}/vagas"> 
 			    	<fmt:message key="books.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;

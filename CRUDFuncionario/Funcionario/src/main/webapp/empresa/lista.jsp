@@ -20,6 +20,7 @@
 		<table border="1">
 			<caption>Lista de Empresas</caption>
 			<tr>
+				<th>Id_user</th>
 				<th>CNPJ</th>
 				<th>Nome</th>
 				<th>Descricao</th>
@@ -30,6 +31,7 @@
 			</tr>
 			<c:forEach var="empresa" items="${requestScope.listaEmpresas}">
 				<tr>
+					<td>${empresa.id}</td>
 					<td>${empresa.cnpj}</td>
 					<td>${empresa.nome}</td>
 					<td size="60">${empresa.descricao}</td>
