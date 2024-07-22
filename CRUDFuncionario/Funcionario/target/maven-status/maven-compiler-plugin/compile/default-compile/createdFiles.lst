@@ -1,6 +1,2 @@
 br\ufscar\dc\dsw\domain\Empresa.class
-br\ufscar\dc\dsw\controller\EmpresaController.class
-br\ufscar\dc\dsw\dao\VagaDAO.class
-br\ufscar\dc\dsw\controller\VagaController.class
 br\ufscar\dc\dsw\domain\Vaga.class
-br\ufscar\dc\dsw\dao\EmpresaDAO.class

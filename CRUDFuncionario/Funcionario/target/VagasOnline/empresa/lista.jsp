@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
 <title>Lista de empresas virtual</title>
@@ -19,6 +20,7 @@
 		<table border="1">
 			<caption>Lista de Empresas</caption>
 			<tr>
+				<th>Id_user</th>
 				<th>CNPJ</th>
 				<th>Nome</th>
 				<th>Descricao</th>
@@ -29,6 +31,7 @@
 			</tr>
 			<c:forEach var="empresa" items="${requestScope.listaEmpresas}">
 				<tr>
+					<td>${empresa.id}</td>
 					<td>${empresa.cnpj}</td>
 					<td>${empresa.nome}</td>
 					<td size="60">${empresa.descricao}</td>

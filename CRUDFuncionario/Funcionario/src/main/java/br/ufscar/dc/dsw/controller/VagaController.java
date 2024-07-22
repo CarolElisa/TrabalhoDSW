@@ -1,9 +1,12 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.EmpresaDAO;
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.dao.VagaDAO;
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Vaga;
+import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.util.Erro;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VagaController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    
+
     private VagaDAO dao;
 
     @Override
@@ -29,15 +32,28 @@ public class VagaController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
-                
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+/*
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		Erro erros = new Erro();
+ 
+		if (usuario == null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		} else if (!usuario.getPapel().equals("ADMIN")) {
+			erros.add("Acesso não autorizado!");
+			erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			rd.forward(request, response);
+			return;
+		}
+*/		
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -69,53 +85,98 @@ public class VagaController extends HttpServlet {
         }
     }
 
-    private void lista(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<Vaga> listaVagas = dao.getAll();
+    private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Vaga> listaVagas = null;
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        System.err.println("DOCUMENTO POR EMPRESA: " + usuario.getPapel());
+        if(usuario.getPapel().equals("ADMIN"))
+        {
+            listaVagas = dao.getAll();
+        }
+        else if(usuario.getPapel().equals("FUNC"))
+        {
+            listaVagas = dao.getAll();
+        }
+        else if(usuario.getPapel().equals("EMPR"))
+        {
+            
+            listaVagas = dao.getPorEmpresa(usuario.getDocumento());
+            
+        }
+        
+        
         request.setAttribute("listaVagas", listaVagas);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vagas/lista.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/lista.jsp");
         dispatcher.forward(request, response);
     }
 
     private Map<String, String> getEmpresas() {
-        Map <String,String> empresas = new HashMap<>();
-        for (Empresa empresa: new EmpresaDAO().getAll()) {
+        Map<String, String> empresas = new HashMap<>();
+        for (Empresa empresa : new EmpresaDAO().getAll()) {
             empresas.put(empresa.getCnpj(), empresa.getNome());
         }
         return empresas;
     }
-    
+
+    private Map<String, String> getEmpresaEspecifica(String cnpj) {
+        Map<String, String> empresas = new HashMap<>();
+        for (Empresa empresa : new EmpresaDAO().getEmpresaEspecifica(cnpj)) {
+            empresas.put(empresa.getCnpj(), empresa.getNome());
+        }
+        return empresas;
+    }
+
+
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("empresas", getEmpresas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vagas/formulario.jsp");
+            String tipoUser = (String) request.getSession().getAttribute("tipoUser");
+            String cnpj = (String) request.getSession().getAttribute("documento");
+            System.out.println("TIPO USER: " + tipoUser);
+        if(tipoUser.equals("empresa"))
+        {
+            
+            System.out.println("CNPJ:" + cnpj);
+            request.setAttribute("empresas", getEmpresaEspecifica(cnpj));
+        }
+        else
+        {
+            request.setAttribute("empresas", getEmpresas());
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
-        Vaga vaga = dao.get(id);
-        request.setAttribute("vaga", vaga);
-        request.setAttribute("empresas", getEmpresas());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vagas/formulario.jsp");
-        dispatcher.forward(request, response);
+        
+            Long id = Long.parseLong(request.getParameter("id"));
+
+            Vaga vaga = dao.get(id);
+        
+            request.setAttribute("vaga", vaga);
+        
+            request.setAttribute("empresas", getEmpresaEspecifica(vaga.getEmpresaCnpj()));
+        
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/formulario.jsp");
+        
+            dispatcher.forward(request, response);
     }
 
-    private void insere(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
         String funcao = request.getParameter("funcao");
         String nivel = request.getParameter("nivel");
         Integer anosContrato = Integer.parseInt(request.getParameter("anosContrato"));
         Float salario = Float.parseFloat(request.getParameter("salario"));
+
+        String empresaCNPJ = request.getParameter("empresa");
         
-        String empresaCNPJ = (request.getParameter("empresa"));
         Empresa empresa = new EmpresaDAO().get(empresaCNPJ);
-        
-        Vaga vaga = new Vaga(funcao, nivel, anosContrato, salario, empresa);
+
+        Vaga vaga = new Vaga(funcao, nivel, anosContrato, salario, empresa.getCnpj(), empresa.getNome());
         dao.insert(vaga);
         response.sendRedirect("lista");
     }
@@ -125,21 +186,20 @@ public class VagaController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         Long id = Long.parseLong(request.getParameter("id"));
-        String funcao = request.getParameter("funcao");
-        String nivel = request.getParameter("nivel");
-        Integer anosContrato = Integer.parseInt(request.getParameter("anosContrato"));
-        Float salario = Float.parseFloat(request.getParameter("salario"));
-        
-        String empresaCNPJ = (request.getParameter("empresa"));
+        String titulo = request.getParameter("funcao");
+        String autor = request.getParameter("nivel");
+        Integer ano = Integer.parseInt(request.getParameter("anosContrato"));
+        Float preco = Float.parseFloat(request.getParameter("salario"));
+
+        String empresaCNPJ = request.getParameter("empresa");
         Empresa empresa = new EmpresaDAO().get(empresaCNPJ);
-        
-        Vaga vaga = new Vaga(id, funcao, nivel, anosContrato, salario, empresa);
+
+        Vaga vaga = new Vaga(id, titulo, autor, ano, preco, empresa);
         dao.update(vaga);
         response.sendRedirect("lista");
     }
 
-    private void remove(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long id = Long.parseLong(request.getParameter("id"));
 
         Vaga vaga = new Vaga(id);

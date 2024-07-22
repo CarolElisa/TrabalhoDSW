@@ -1,14 +1,13 @@
 package br.ufscar.dc.dsw.controller;
 
 import br.ufscar.dc.dsw.dao.EmpresaDAO;
-
+import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Empresa;
-
+import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.util.Erro;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,22 +21,41 @@ public class EmpresaController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private EmpresaDAO dao;
-
+    private UsuarioDAO daoUsuario;
     @Override
     public void init() {
         dao = new EmpresaDAO();
+        daoUsuario = new UsuarioDAO();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
+            throws ServletException, IOException {
         doGet(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException {
-                
+            throws ServletException, IOException {
+        
+        
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		Erro erros = new Erro();
+
+		if (usuario == null) {
+			response.sendRedirect(request.getContextPath());
+			return;
+		} else if (!usuario.getPapel().equals("ADMIN")) {
+			erros.add("Acesso não autorizado!");
+			erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			rd.forward(request, response);
+			return;
+		}
+
+
+
         String action = request.getPathInfo();
         if (action == null) {
             action = "";
@@ -72,28 +90,19 @@ public class EmpresaController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         List<Empresa> listaEmpresas = new EmpresaDAO().getAll();
-        System.out.println("Number of companies: " + listaEmpresas.size());
-        for (Empresa empresa : listaEmpresas) {
-            System.out.println(empresa.getCnpj() + " - " + empresa.getEmail()+ " - " + empresa.getSenha()+ " - " + empresa.getCidade()+ " - " + empresa.getDescricao()+ " - " + empresa.getNome());
-        }
         request.setAttribute("listaEmpresas", listaEmpresas);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/lista.jsp");
         dispatcher.forward(request, response);
     }
-
-
-    private Map<String, String> getEmpresas() {
-        Map <String,String> empresas = new HashMap<>();
-        for (Empresa empresa: new EmpresaDAO().getAll()) {
-            empresas.put(empresa.getCnpj(), empresa.getNome());
-        }
-        return empresas;
-    }
     
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String cnpj = (request.getParameter("cnpj"));
+        
+        Empresa empresa = dao.get(cnpj);
         request.setAttribute("empresa", null);
+        request.setAttribute("cnpj", cnpj);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -101,8 +110,10 @@ public class EmpresaController extends HttpServlet {
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cnpj = (request.getParameter("cnpj"));
-        Empresa empresa = dao.get(cnpj);
+        Long id = Long.parseLong(request.getParameter("cnpj"));
+        Empresa empresa = dao.getEdicao(id);
         request.setAttribute("empresa", empresa);
+        request.setAttribute("cnpj", cnpj);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -110,21 +121,30 @@ public class EmpresaController extends HttpServlet {
     private void insere(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+        String usuario_nome = request.getParameter("usuNome");
+        String usuario_login = request.getParameter("usuLogin");
+        String usuario_senha = request.getParameter("usuSenha");
+        String usuario_papel = request.getParameter("usuPapel");
+        String usuario_doc = request.getParameter("cnpj");        
+        Usuario usuario = new Usuario(usuario_nome, usuario_login, usuario_senha, usuario_papel, usuario_doc);        
+        daoUsuario.insert(usuario);
+
+
         String cnpj = request.getParameter("cnpj");
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String cidade = request.getParameter("cidade");
-        Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+        Empresa empresa = new Empresa(usuario.getId(), cnpj, nome, descricao, email, senha, cidade);
         dao.insert(empresa);
         response.sendRedirect("lista");
     }
 
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            
+            Long id = Long.parseLong(request.getParameter("id"));     
             String cnpj = request.getParameter("cnpj");
             String nome = request.getParameter("nome");
             String descricao = request.getParameter("descricao");
@@ -134,16 +154,17 @@ public class EmpresaController extends HttpServlet {
 
         //Empresa empresa = new EmpresaDAO().get(empresaID);
         
-        Empresa empresa = new Empresa(cnpj, nome, descricao, email, senha, cidade);
+        Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
         dao.update(empresa);
         response.sendRedirect("lista");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
         String cnpj = request.getParameter("cnpj");
 
-        Empresa empresa = new Empresa(cnpj);
+        Empresa empresa = new Empresa(id, cnpj);
         dao.delete(empresa);
         response.sendRedirect("lista");
     }
