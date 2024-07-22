@@ -42,7 +42,7 @@
 			<select name="papel">
 				<option value="ADMIN" ${usuario.papel == "ADMIN" ? 'selected="selected"' : ''}>ADMIN</option>
 				<option value="EMPR" ${usuario.papel == "EMPR" ? 'selected="selected"' : ''}>EMPR</option>
-				<option value="USER" ${usuario.papel == "FUNC" ? 'selected="selected"' : ''}>FUNC</option>
+				<option value="PROF" ${usuario.papel == "PROF" ? 'selected="selected"' : ''}>PROF</option>
 			</select>			
 		</td>
 	</tr>

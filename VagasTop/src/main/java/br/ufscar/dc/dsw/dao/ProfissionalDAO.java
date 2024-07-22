@@ -42,7 +42,7 @@ public class ProfissionalDAO extends GenericDAO {
 
         List<Profissional> listaProfissionais = new ArrayList<>();
 
-        String sql = "SELECT * from Profissional order by nome";
+        String sql = "SELECT u.id, p.* from Profissional p join usuario u on u.documento = p.cpf order by nome";
 
         try {
             Connection conn = this.getConnection();
@@ -50,6 +50,7 @@ public class ProfissionalDAO extends GenericDAO {
 
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
                 String cpf = resultSet.getString("cpf");
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
@@ -58,7 +59,7 @@ public class ProfissionalDAO extends GenericDAO {
                 String sexo = resultSet.getString("sexo");
                 String datanasc = resultSet.getString("datanasc");
                 
-                Profissional profissional = new Profissional(cpf, nome, email, senha, telefone, sexo, datanasc);
+                Profissional profissional = new Profissional(id, cpf, nome, email, senha, telefone, sexo, datanasc);
     
                 listaProfissionais.add(profissional);
             }
@@ -112,10 +113,40 @@ public class ProfissionalDAO extends GenericDAO {
         }
     }
 
+    public Profissional getEdicao(Long id) {
+        Profissional profissional = null;
+        
+        String sql = "SELECT u.id as user, p.* from Profissional p join Usuario u on u.documento = p.cpf where u.id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String cpf = resultSet.getString("cpf");
+                String nome = resultSet.getString("nome");
+                String email = resultSet.getString("email");
+                String senha = resultSet.getString("senha");
+                String telefone = resultSet.getString("telefone");
+                String sexo = resultSet.getString("sexo");
+                String datanasc = resultSet.getString("datanasc");
+                profissional = new Profissional(id, cpf, nome, email, senha, telefone, sexo, datanasc);
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return profissional;
+    }
+
     public Profissional get(String cpf) {
         Profissional profissional = null;
 
-        String sql = "SELECT * from Profissional where cpf = ?";
+        String sql = "SELECT u.id as user, p.* from Profissional e join Usuario u on u.documento = p.cpf where cpf = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -124,7 +155,7 @@ public class ProfissionalDAO extends GenericDAO {
             statement.setString(1, cpf);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                
+                Long id = resultSet.getLong("user");
                 String nome = resultSet.getString("nome");
                 String email = resultSet.getString("email");
                 String senha = resultSet.getString("senha");
@@ -132,7 +163,7 @@ public class ProfissionalDAO extends GenericDAO {
                 String sexo = resultSet.getString("sexo");
                 String datanasc = resultSet.getString("datanasc");
 
-                profissional = new Profissional(cpf, nome, email, senha, telefone, sexo, datanasc);
+                profissional = new Profissional(id, cpf, nome, email, senha, telefone, sexo, datanasc);
             }
 
             resultSet.close();

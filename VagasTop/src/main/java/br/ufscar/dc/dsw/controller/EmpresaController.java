@@ -99,8 +99,6 @@ public class EmpresaController extends HttpServlet {
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cnpj = (request.getParameter("cnpj"));
-        
-        Empresa empresa = dao.get(cnpj);
         request.setAttribute("empresa", null);
         request.setAttribute("cnpj", cnpj);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/formulario.jsp");
@@ -109,11 +107,11 @@ public class EmpresaController extends HttpServlet {
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cnpj = (request.getParameter("cnpj"));
-        Long id = Long.parseLong(request.getParameter("cnpj"));
-        Empresa empresa = dao.getEdicao(id);
+        String cnpj = request.getParameter("cnpj");
+        //Long id = Long.parseLong(request.getParameter(cnpj));
+        Empresa empresa = dao.get(cnpj);
         request.setAttribute("empresa", empresa);
-        request.setAttribute("cnpj", cnpj);
+        //request.setAttribute("cnpj", cnpj);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/empresa/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -130,11 +128,11 @@ public class EmpresaController extends HttpServlet {
         daoUsuario.insert(usuario);
 
 
-        String cnpj = request.getParameter("cnpj");
-        String nome = request.getParameter("nome");
+        String cnpj = usuario_doc;
+        String nome = usuario_nome;
         String descricao = request.getParameter("descricao");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
+        String email = usuario_login;
+        String senha = usuario_senha;
         String cidade = request.getParameter("cidade");
         Empresa empresa = new Empresa(usuario.getId(), cnpj, nome, descricao, email, senha, cidade);
         dao.insert(empresa);
@@ -144,17 +142,23 @@ public class EmpresaController extends HttpServlet {
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
-            Long id = Long.parseLong(request.getParameter("id"));     
-            String cnpj = request.getParameter("cnpj");
-            String nome = request.getParameter("nome");
-            String descricao = request.getParameter("descricao");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String cidade = request.getParameter("cidade");
-
-        //Empresa empresa = new EmpresaDAO().get(empresaID);
+            String usuario_nome = request.getParameter("usuNome");
+            String usuario_login = request.getParameter("usuLogin");
+            String usuario_senha = request.getParameter("usuSenha");
+            String usuario_papel = request.getParameter("usuPapel");
+            String usuario_doc = request.getParameter("cnpj");        
+            Usuario usuario = new Usuario(usuario_nome, usuario_login, usuario_senha, usuario_papel, usuario_doc);        
+            daoUsuario.insert(usuario);
         
-        Empresa empresa = new Empresa(id, cnpj, nome, descricao, email, senha, cidade);
+            
+            String cnpj = usuario_doc;
+            String nome = usuario_nome;
+            String descricao = request.getParameter("descricao");
+            String email = usuario_login;
+            String senha = usuario_senha;
+            String cidade = request.getParameter("cidade");
+        
+        Empresa empresa = new Empresa(usuario.getId(), cnpj, nome, descricao, email, senha, cidade);
         dao.update(empresa);
         response.sendRedirect("lista");
     }
