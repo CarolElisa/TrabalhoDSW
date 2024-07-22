@@ -4,9 +4,7 @@ import br.ufscar.dc.dsw.dao.ProfissionalDAO;
 import br.ufscar.dc.dsw.domain.Profissional;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -76,17 +74,17 @@ public class ProfissionalController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private Map<String, String> getProfissional() {
-        Map <String, String> profissionais = new HashMap<>();
-        for (Profissional profissional: new ProfissionalDAO().getAll()) {
-            profissionais.put(profissional.getCpf(), profissional.getTelefone());
+    /*private Map<Long, String> getEditoras() {
+        Map <Long,String> editoras = new HashMap<>();
+        for (Editora editora: new EditoraDAO().getAll()) {
+            editoras.put(editora.getId(), editora.getNome());
         }
-        return profissionais;
-    }
+        return editoras;
+    }*/
     
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("profissionais", getProfissional());
+        request.setAttribute("profissional", null);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/formulario.jsp");
         dispatcher.forward(request, response);
     }
@@ -96,7 +94,7 @@ public class ProfissionalController extends HttpServlet {
         String cpf = request.getParameter("cpf");
         Profissional profissional = dao.get(cpf);
         request.setAttribute("profissional", profissional);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/livro/formulario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/formulario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -107,13 +105,12 @@ public class ProfissionalController extends HttpServlet {
         String cpf = request.getParameter("cpf");
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
-        String senha = request.getParameter("senha");        
+        String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
-        String dataDeNascimento = request.getParameter("dataDeNascimento");
-       
-        Profissional profissional = new Profissional(cpf, nome, email, senha, telefone, sexo, dataDeNascimento);
+        String datanasc = request.getParameter("datanasc");
         
+        Profissional profissional = new Profissional (cpf, nome, email, senha, telefone, sexo, datanasc);
         dao.insert(profissional);
         response.sendRedirect("lista");
     }
@@ -122,17 +119,15 @@ public class ProfissionalController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String cpf = request.getParameter("cpf");
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
-        String senha = request.getParameter("senha");        
+        String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
         String sexo = request.getParameter("sexo");
-        String dataDeNascimento = request.getParameter("dataDeNascimento");
-       
-        Profissional profissional = new Profissional(cpf, nome, email, senha, telefone, sexo, dataDeNascimento);
-        
-        dao.insert(profissional);
+        String datanasc = request.getParameter("datanasc");
+                
+        Profissional profissional = new Profissional(nome, email, senha, telefone, sexo, datanasc);
+        dao.update(profissional);
         response.sendRedirect("lista");
     }
 

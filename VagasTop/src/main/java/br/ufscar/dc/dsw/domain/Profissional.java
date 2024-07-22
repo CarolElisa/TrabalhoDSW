@@ -1,32 +1,37 @@
 package br.ufscar.dc.dsw.domain;
 
 public class Profissional {
-
+    
     private String cpf;
     private String nome;
     private String email;
     private String senha;
     private String telefone;
     private String sexo;
-    private String dataNasc;
- 
+    private String datanasc;
+   
 
     public Profissional(String cpf) {
         this.cpf = cpf;
     }
 
-    public Profissional(String nome, String email, String senha, String telefone, String sexo, String dataNasc) {
+    public Profissional(String nome, String email, String senha, String telefone, String sexo, String datanasc) {
         this.nome = nome;
-        this.email = email;       
+        this.email = email;
         this.senha = senha;
         this.telefone = telefone;
         this.sexo = sexo;
-        this.dataNasc = dataNasc;
+        this.datanasc = datanasc;
     }
 
-    public Profissional(String nome, String email, String senha, String cpf, String telefone, String sexo, String dataNasc) {
-        this(nome, email, senha, telefone, sexo, dataNasc);
+    public Profissional(String cpf, String nome, String email, String senha, String telefone, String sexo, String datanasc) {
         this.cpf = cpf;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.sexo = sexo;
+        this.datanasc = datanasc;
     }
 
     public String getCpf() {
@@ -44,7 +49,7 @@ public class Profissional {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -78,10 +83,13 @@ public class Profissional {
     }
 
     public String getDatanasc() {
-        return dataNasc;
+        return datanasc;
     }
 
-    public void setDatanasc(String dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setDatanasc(String datanasc) {
+        this.datanasc = datanasc;
     }
+
 }
+
+

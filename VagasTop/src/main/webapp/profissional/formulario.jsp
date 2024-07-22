@@ -5,12 +5,12 @@
 <html>
 
 <head>
-<title>Pagina do Profissional</title>
+<title>Profissionais</title>
 </head>
 
 <body>
 	<div align="center">
-		<h1>Profissionais</h1>
+		<h1>Gerenciamento de Profissionais</h1>
 		<h2>
 			<a href="lista">Lista de Profissionais</a>
 		</h2>
@@ -19,12 +19,12 @@
 		<c:choose>
 			<c:when test="${profissional != null}">
 				<form action="atualizacao" method="post">
-					<%@include file="campos.jsp"%>
+					<%@include file="camposEdicao.jsp"%>
 				</form>
 			</c:when>
 			<c:otherwise>
 				<form action="insercao" method="post">
-					<%@include file="campos.jsp"%>
+					<%@include file="camposCadastro.jsp"%>
 				</form>
 			</c:otherwise>
 		</c:choose>
