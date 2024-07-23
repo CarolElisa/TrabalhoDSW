@@ -25,7 +25,7 @@
 				</a> 
 				&nbsp;&nbsp;&nbsp;
 				<a href="/${sessionScope.contextPath}/profissionais"> 
-			    	<fmt:message key="oieeeeee.entity" />
+			    	<fmt:message key="prof.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
 				<a href="${pageContext.request.contextPath}/logout.jsp">

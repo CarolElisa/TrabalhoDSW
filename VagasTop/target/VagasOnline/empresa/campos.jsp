@@ -41,7 +41,7 @@
 		</label></td>
 		<td>
 			<select name="usuPapel">
-				<option value="USER" ${usuario.papel == "EMPR" ? 'selected="selected"' : ''}>EMPR</option>
+				<option value="EMPR" ${usuario.papel == "EMPR" ? 'selected="selected"' : ''}>EMPR</option>
 			</select>			
 		</td>
 	</tr>

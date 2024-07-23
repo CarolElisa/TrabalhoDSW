@@ -146,7 +146,7 @@ public class ProfissionalDAO extends GenericDAO {
     public Profissional get(String cpf) {
         Profissional profissional = null;
 
-        String sql = "SELECT u.id as user, p.* from Profissional e join Usuario u on u.documento = p.cpf where cpf = ?";
+        String sql = "SELECT u.id as user, p.* from Profissional p join Usuario u on u.documento = p.cpf where cpf = ?";
 
         try {
             Connection conn = this.getConnection();

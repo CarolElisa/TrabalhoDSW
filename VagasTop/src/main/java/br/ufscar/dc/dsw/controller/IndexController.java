@@ -42,7 +42,13 @@ public class IndexController extends HttpServlet {
 						if (usuario.getPapel().equals("ADMIN")) {
 							request.getSession().setAttribute("tipoUser", "admin");
 							response.sendRedirect("usuarios/?contextPath=" + contextPath);
-						} else {
+						} else if(usuario.getPapel().equals("PROF")){
+							request.getSession().setAttribute("tipoUser", "profissional");
+							request.getSession().setAttribute("documento", usuario.getDocumento());
+							response.sendRedirect("vagas/?contextPath=" + contextPath);
+						}
+
+						else {
 							request.getSession().setAttribute("tipoUser", "empresa");
 							request.getSession().setAttribute("documento", usuario.getDocumento());
 							response.sendRedirect("vagas/?contextPath=" + contextPath);

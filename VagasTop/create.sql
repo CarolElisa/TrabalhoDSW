@@ -35,7 +35,7 @@ insert into Usuario(nome, documento, login, senha, papel) values ('Carla Ribeiro
 insert into Usuario(nome, documento, login, senha, papel) values ('Julio Cesar Coentro', '357.970.831-75', 'jcc02@yahoo.com', 'juliojulho', 'PROF');
 insert into Usuario(nome, documento, login, senha, papel) values ('Gabriel Cristiano Correia', '966.656.669-99', 'gabrielcristiano@hotmail.com', 'julialinda44', 'PROF');
 insert into Usuario(nome, documento, login, senha, papel) values ('Maria Maia', '053.416.151-07', 'm.maia12@hotmail.com', 'mariazinha@123', 'PROF');
-
+insert into Usuario(nome, documento, login, senha, papel) values ('prof', '123', 'prof', 'prof', 'PROF');
 
 insert into Empresa(cnpj, nome, descricao, email, senha, cidade) values  ('21.739.316/0001-70', 'Amazon LTDA', 'Empresa de Tecnologia', 'amazon@amazon.com', 'UmaSenhaSegur@2', 'Manaus');
 insert into Empresa(cnpj, nome, descricao, email, senha, cidade) values  ('85.424.990/0001-48', 'Padaria Guanabara', 'Padaria', 'pguanabara@gmail.com', 'NomeDoDono@123', 'Sao Carlos');
@@ -57,6 +57,7 @@ insert into Profissional(cpf, nome, email, senha, telefone, sexo, datanasc) valu
 insert into Profissional(cpf, nome, email, senha, telefone, sexo, datanasc) values ('357.970.831-75', 'Julio Cesar Coentro', 'jcc02@yahoo.com', 'juliojulho', '66 99452-3314', 'masculino', '06/07/2000');
 insert into Profissional(cpf, nome, email, senha, telefone, sexo, datanasc) values ('966.656.669-99', 'Gabriel Cristiano Correia', 'gabrielcristiano@hotmail.com', 'julialinda44', '43 99225-4661', 'masculino', '13/09/2002');
 insert into Profissional(cpf, nome, email, senha, telefone, sexo, datanasc) values ('053.416.151-07', 'Maria Maia', 'm.maia12@hotmail.com', 'mariazinha@123', '63 92210-4937', 'feminino', '03/01/1992');
+insert into Profissional(cpf, nome, email, senha, telefone, sexo, datanasc) values ('123', 'prof', 'prof@hotmail.com', 'prof', 'prof', 'feminino', '03/01/1992');
 
 
 insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('Barbeiro', 'Avancado', 2, 2500, '12.345.678/0008-99');
@@ -70,3 +71,5 @@ insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('At
 insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('Photographer', 'Advanced', '4', '8000', '42.271.979/0001-82');
 
 insert into Candidatura(id, cpf, id_vaga, status) values (1, '296.332.571-15', 1, "ABERTO");
+insert into Candidatura(id, cpf, id_vaga, status) values (2, '310.754.187-71', 1, "ABERTO");
+insert into Candidatura(id, cpf, id_vaga, status) values (3, '049.103.538-10', 2, "ABERTO");

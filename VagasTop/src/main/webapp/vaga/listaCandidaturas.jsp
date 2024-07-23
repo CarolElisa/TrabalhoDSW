@@ -26,6 +26,9 @@
 			</a>
 			<br/>
 			<br/>
+			<a href="/${sessionScope.contextPath}/vagas/lista">
+				<fmt:message key="books.list" />
+			</a>
 			<a href="/${sessionScope.contextPath}/vagas/cadastro">
 				<fmt:message key="books.create" />
 			</a>

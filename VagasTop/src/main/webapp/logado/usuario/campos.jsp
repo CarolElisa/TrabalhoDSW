@@ -7,10 +7,10 @@
 	<caption>
 		<c:choose>
 			<c:when test="${usuario != null}">
-				<fmt:message key="users.update" />
+				<fmt:message key="user.update" />
 			</c:when>
 			<c:otherwise>
-				<fmt:message key="users.create" />
+				<fmt:message key="user.create" />
 			</c:otherwise>
 		</c:choose>
 	</caption>

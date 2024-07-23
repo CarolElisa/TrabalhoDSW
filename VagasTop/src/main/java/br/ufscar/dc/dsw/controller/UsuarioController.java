@@ -138,7 +138,8 @@ public class UsuarioController extends HttpServlet {
 	private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
 
-		Usuario usuario = new Usuario(id);
+		Usuario usuario = dao.get(id);
+		System.out.println("deletando usuario...");
 		dao.delete(usuario);
 		response.sendRedirect("lista");
 	}

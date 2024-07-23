@@ -12,23 +12,56 @@
 		<h1>
 			<fmt:message key="books.welcome" />
 		</h1>
+
+
+
 		<h2>
-			<a href="/${sessionScope.contextPath}/empresas">
-				<fmt:message key="books.entity" />
-			</a>
-			&nbsp;&nbsp;&nbsp;
-			<a href="/${sessionScope.contextPath}/usuarios"> 
-				<fmt:message key="users.entity" />
-			</a> 
-			&nbsp;&nbsp;&nbsp;
-			<a href="${pageContext.request.contextPath}/logout.jsp">
-				<fmt:message key="exit.link" />
-			</a>
-			<br/>
-			<br/>
-			<a href="/${sessionScope.contextPath}/vagas/cadastro">
-				<fmt:message key="books.create" />
-			</a>
+			<c:choose>
+				<c:when test="${tipoUser == 'admin'}">
+					<a href="/${sessionScope.contextPath}/empresas">
+						<fmt:message key="publisher.entity" />
+					</a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="/${sessionScope.contextPath}/usuarios"> 
+						<fmt:message key="users.entity" />
+					</a> 
+					&nbsp;&nbsp;&nbsp;
+					<a href="${pageContext.request.contextPath}/vagas.jsp">
+						<fmt:message key="books.link" />
+					</a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="${pageContext.request.contextPath}/logout.jsp">
+						<fmt:message key="exit.link" />
+					</a>
+					<br/>
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${tipoUser == 'empresa'}"> 
+					
+					<br/>
+					<a href="/${sessionScope.contextPath}/vagas/cadastro">
+						<fmt:message key="books.create" />
+					</a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="${pageContext.request.contextPath}/logout.jsp">
+						<fmt:message key="exit.link" />
+					</a>
+					<br/>
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${tipoUser == 'profissional'}"> 
+					<a href="${pageContext.request.contextPath}/vagas/listaCandProf">
+						<fmt:message key="prof.candidatura" />
+					</a>
+					&nbsp;&nbsp;&nbsp;
+					<br/>
+					<a href="${pageContext.request.contextPath}/logout.jsp">
+						<fmt:message key="exit.link" />
+					</a>
+				</c:when>
+		</c:choose>
 		</h2>
 		<h3><fmt:message key="books.list" /></h3>
 		<br/>
@@ -78,9 +111,9 @@
 								onclick="return confirm('Tem certeza de que deseja excluir este item?');">
 									Remover </a>
 							</c:when>
-							<c:when test="${tipoUser == 'funcionario'}">
+							<c:when test="${tipoUser == 'profissional'}">
 								<a
-								href="/${requestScope.contextPath}/vagas/edicao?id=${vaga.id}">Candidatar-se
+								href="/${requestScope.contextPath}/vagas/candidatarse?id_vaga=${vaga.id}">Candidatar-se
 									</a>
 							</c:when>
 						</c:choose>

@@ -13,7 +13,7 @@
 	<body>
 		<div align="center">
 			<h1>
-				<fmt:message key="users.welcome" />
+				<fmt:message key="user.welcome" />
 			</h1>
 			<h2>
 				<a href="/${sessionScope.contextPath}/empresas"> 
@@ -34,7 +34,7 @@
 				<br/>
 				<br/>
 				<a href="lista"> 
-					<fmt:message key="users.list" />
+					<fmt:message key="user.list" />
 				</a>
 			</h2>
 		</div>

@@ -68,19 +68,46 @@ public class UsuarioDAO extends GenericDAO {
     }
 
     public void delete(Usuario usuario) {
-        String sql = "DELETE FROM Usuario where id = ?";
 
+        String sql = "";
+        System.out.println(usuario.getDocumento());
+        if(usuario.getPapel().equals("EMPR"))
+        {
+            sql = "DELETE FROM EMPRESA WHERE CNPJ = '" + usuario.getDocumento() + "'"; 
+        }
+        else if(usuario.getPapel().equals("PROF"))
+        {
+            sql = "DELETE FROM PROFISSIONAL WHERE CPF = '" + usuario.getDocumento() + "'"; 
+        }
+
+
+        System.out.println(sql);
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-
-            statement.setLong(1, usuario.getId());
             statement.executeUpdate();
-
             statement.close();
             conn.close();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+        
+        sql = "DELETE FROM Usuario where id = ?";
+        try {
+            Connection conn = this.getConnection();
+            
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setLong(1, usuario.getId());
+            
+            
+            statement.executeUpdate();
+            System.out.println(sql + " " + usuario.getId());
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
     }
 
     public void update(Usuario usuario) {

@@ -78,10 +78,20 @@ public class VagaController extends HttpServlet {
                 case "/candidatura":
                     listaCandidaturas(request,response);
                     break;
+                case "/candidatarse":
+                    candidatarSe(request,response);
+                    break;
                 case "/recusar":
                     aprovarRecusarCandidatura(request,response, "RECUSADO");
                 break;
 
+                case "/listaCandProf":
+                    listaCandidaturasProf(request, response);
+                break;
+
+                case "/desistir":
+                    desistirCandidatura(request, response);
+                break;
                 case "/aprovar":
                     aprovarRecusarCandidatura(request,response, "APROVADO");
                 break;
@@ -97,14 +107,14 @@ public class VagaController extends HttpServlet {
     private void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Vaga> listaVagas = null;
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
-        System.err.println("DOCUMENTO POR EMPRESA: " + usuario.getPapel());
+
         if(usuario.getPapel().equals("ADMIN"))
         {
             listaVagas = dao.getAll();
         }
-        else if(usuario.getPapel().equals("FUNC"))
+        else if(usuario.getPapel().equals("PROF"))
         {
-            listaVagas = dao.getAll();
+            listaVagas = dao.getProfNaoCandidatou(usuario.getDocumento());
         }
         else if(usuario.getPapel().equals("EMPR"))
         {
@@ -120,20 +130,42 @@ public class VagaController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+
+
     private void listaCandidaturas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Candidatura> listaCandidaturas = null;
         Long id_vaga = Long.parseLong(request.getParameter("id_vaga"));
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+
         if(usuario.getPapel().equals("EMPR"))
         {
             listaCandidaturas = dao.getCandidaturaVagaEspecifica(id_vaga);
+            request.setAttribute("listaCandidaturas", listaCandidaturas);
+            request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/listaCandidaturas.jsp");
+            dispatcher.forward(request, response);
+        }
+        else
+        {
+            //Mostrar candidaturas de um profissional específico
         }
         
         
+
+    }
+
+    private void listaCandidaturasProf(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        List<Candidatura> listaCandidaturas = null;
+        
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        listaCandidaturas = dao.getCandidaturaProfEspecifico(usuario.getDocumento());
+        
         request.setAttribute("listaCandidaturas", listaCandidaturas);
         request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/listaCandidaturas.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/listaCandidaturasProf.jsp");
         dispatcher.forward(request, response);
+
     }
 
 
@@ -207,6 +239,16 @@ public class VagaController extends HttpServlet {
         response.sendRedirect("lista");
     }
 
+    public void candidatarSe(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Long id_vaga = Long.parseLong(request.getParameter("id_vaga"));
+        Vaga vaga = dao.get(id_vaga);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        
+        dao.criaCandidatura(vaga, usuario);
+        response.sendRedirect("lista");
+    }
+
     private void atualize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -233,11 +275,26 @@ public class VagaController extends HttpServlet {
         VagaDAO vDao = new VagaDAO();
         Vaga v = vDao.get(id);
         String cpf = request.getParameter("cpf");
-        String empresaCNPJ = request.getParameter("empresa");
-        Empresa empresa = new EmpresaDAO().get(empresaCNPJ);
+
+
 
         dao.aprovaRecusa(v, aprovado, cpf);
-        response.sendRedirect("listaCandidaturas");
+        response.sendRedirect("candidatura?id_vaga=" + v.getId());
+    }
+
+    private void desistirCandidatura(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+     
+        request.setCharacterEncoding("UTF-8");
+        Long id = Long.parseLong(request.getParameter("id_vaga"));
+        VagaDAO vDao = new VagaDAO();
+        Vaga v = vDao.get(id);
+        String cpf = request.getParameter("cpf");
+
+
+
+        dao.desistirCandidatura(v,cpf);
+        response.sendRedirect("listaCandProf");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -245,6 +302,6 @@ public class VagaController extends HttpServlet {
 
         Vaga vaga = new Vaga(id);
         dao.delete(vaga);
-        response.sendRedirect("lista");
+        response.sendRedirect("/vaga/listaCandidaturasProf.jsp");
     }
 }

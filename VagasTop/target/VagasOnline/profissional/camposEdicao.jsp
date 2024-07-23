@@ -16,24 +16,6 @@
 		</c:choose>
 	</caption>
 	
-	<tr>
-		<td><label for="nome">Nome</label></td>
-		<td><input type="text" id="nome" name="nome" size="45"
-			required value="${profissional.nome}" /></td>
-	</tr>
-
-	<tr>
-		<td><label for="email">E-mail</label></td>
-		<td><input type="text" id="email" name="email" size="45"
-			required value="${profissional.email}" /></td>
-	</tr>
-
-	<tr>
-		<td><label for="senha">Senha</label></td>
-		<td><input type="text" id="senha" name="senha" size="45"
-			required value="${profissional.senha}" /></td>
-	</tr>
-
 	<c:if test="${profissional != null}">
 		<input type="hidden" name="usuId" value="${usuario.id}" />
 	</c:if>
