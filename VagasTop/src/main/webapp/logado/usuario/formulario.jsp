@@ -24,6 +24,10 @@
 			    	<fmt:message key="books.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
+				<a href="/${sessionScope.contextPath}/profissionais"> 
+			    	<fmt:message key="oieeeeee.entity" />
+				</a> 
+				&nbsp;&nbsp;&nbsp;
 				<a href="${pageContext.request.contextPath}/logout.jsp">
 					<fmt:message key="exit.link" />
 				</a>

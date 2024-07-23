@@ -182,7 +182,7 @@ sql =  sql + " WHERE ID_VAGA = " + idVaga;
                 int ano = resultSet.getInt("anosContrato");
                 float preco = resultSet.getFloat("salario");
                 String cnpj = resultSet.getString("cnpj");
-                String emprNome = resultSet.getString("nomeEmpr");
+                //String emprNome = resultSet.getString("nomeEmpr");
                 String nome = resultSet.getString("nome");
                 String descricao = resultSet.getString("descricao");
                 String email = resultSet.getString("email");

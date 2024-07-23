@@ -10,7 +10,7 @@ create table Empresa(cnpj varchar(18) not null, nome varchar(256) not null, desc
 
 create table Vaga(id bigint not null auto_increment, funcao varchar(256) not null, nivel varchar(256) not null, anosContrato integer not null, salario float not null, empresa_cnpj varchar(256), status varchar(256), primary key (id), foreign key (empresa_cnpj) references Empresa(cnpj));
 
-create table Profissional(cpf varchar(14) not null, nome varchar(256) not null, email varchar(256) not null, senha varchar(16) not null, telefone varchar(13) not null, sexo varchar(256) not null, dataNasc varchar(10) not null, primary key (cpf), foreign key (cpf) references Usuario(documento));
+create table Profissional(cpf varchar(14) not null, nome varchar(256) not null, email varchar(256) not null, senha varchar(16) not null, telefone varchar(13) not null, sexo varchar(256) not null, datanasc varchar(10) not null, primary key (cpf), foreign key (cpf) references Usuario(documento));
 
 create table Candidatura(id bigint not null auto_increment, cpf varchar(14) not null, id_vaga bigint not null not null, status varchar(256), primary key(id), foreign key(cpf) references Profissional(cpf), foreign key(id_vaga) references Vaga(id));
 
@@ -35,6 +35,8 @@ insert into Usuario(nome, documento, login, senha, papel) values ('Carla Ribeiro
 insert into Usuario(nome, documento, login, senha, papel) values ('Julio Cesar Coentro', '357.970.831-75', 'jcc02@yahoo.com', 'juliojulho', 'PROF');
 insert into Usuario(nome, documento, login, senha, papel) values ('Gabriel Cristiano Correia', '966.656.669-99', 'gabrielcristiano@hotmail.com', 'julialinda44', 'PROF');
 insert into Usuario(nome, documento, login, senha, papel) values ('Maria Maia', '053.416.151-07', 'm.maia12@hotmail.com', 'mariazinha@123', 'PROF');
+
+
 insert into Empresa(cnpj, nome, descricao, email, senha, cidade) values  ('21.739.316/0001-70', 'Amazon LTDA', 'Empresa de Tecnologia', 'amazon@amazon.com', 'UmaSenhaSegur@2', 'Manaus');
 insert into Empresa(cnpj, nome, descricao, email, senha, cidade) values  ('85.424.990/0001-48', 'Padaria Guanabara', 'Padaria', 'pguanabara@gmail.com', 'NomeDoDono@123', 'Sao Carlos');
 insert into Empresa(cnpj, nome, descricao, email, senha, cidade) values  ('42.271.979/0001-82', 'New York City', 'Journal', 'nycjournal@ny.com', 'Password@458754', 'New York');

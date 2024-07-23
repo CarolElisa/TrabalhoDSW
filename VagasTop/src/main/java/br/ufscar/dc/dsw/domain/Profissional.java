@@ -1,6 +1,6 @@
 package br.ufscar.dc.dsw.domain;
 
-public class Profissional {
+public class Profissional extends Usuario{
     
     private String cpf;
     private String nome;
@@ -11,11 +11,13 @@ public class Profissional {
     private String datanasc;
    
 
-    public Profissional(String cpf) {
+    public Profissional(long id, String cpf) {
+        super(id);
         this.cpf = cpf;
     }
 
-    public Profissional(String nome, String email, String senha, String telefone, String sexo, String datanasc) {
+    public Profissional(long id, String nome, String email, String senha, String telefone, String sexo, String datanasc) {
+        super (id);
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -24,7 +26,8 @@ public class Profissional {
         this.datanasc = datanasc;
     }
 
-    public Profissional(String cpf, String nome, String email, String senha, String telefone, String sexo, String datanasc) {
+    public Profissional(long id, String cpf, String nome, String email, String senha, String telefone, String sexo, String datanasc) {
+        super(id);
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;

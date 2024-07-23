@@ -19,6 +19,7 @@
 		<table border="1">
 			<caption>Lista de Profissionais</caption>
 			<tr>
+				<th>Id_user</th>
 				<th>CPF</th>
 				<th>Nome</th>
 				<th>E-mail</th>
@@ -30,6 +31,8 @@
 			</tr>
 			<c:forEach var="profissional" items="${requestScope.listaProfissionais}">
 				<tr>
+
+					<td>${profissional.id}</td>
 					<td>${profissional.cpf}</td>
 					<td>${profissional.nome}</td>
 					<td>${profissional.email}</td>
