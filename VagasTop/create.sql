@@ -8,14 +8,16 @@ create table Usuario(id bigint not null auto_increment, documento varchar(18) no
 
 create table Empresa(cnpj varchar(18) not null, nome varchar(256) not null, descricao varchar(256), email varchar(256), senha varchar(256), cidade varchar(256), primary key (cnpj), foreign key (cnpj) references Usuario(documento));
 
-create table Vaga(id bigint not null auto_increment, funcao varchar(256) not null, nivel varchar(256) not null, anosContrato integer not null, salario float not null, empresa_cnpj varchar(256), primary key (id), foreign key (empresa_cnpj) references Empresa(cnpj));
+create table Vaga(id bigint not null auto_increment, funcao varchar(256) not null, nivel varchar(256) not null, anosContrato integer not null, salario float not null, empresa_cnpj varchar(256), status varchar(256), primary key (id), foreign key (empresa_cnpj) references Empresa(cnpj));
 
 create table Profissional(cpf varchar(14) not null, nome varchar(256) not null, email varchar(256) not null, senha varchar(16) not null, telefone varchar(13) not null, sexo varchar(256) not null, dataNasc varchar(10) not null, primary key (cpf), foreign key (cpf) references Usuario(documento));
+
+create table Candidatura(id bigint not null auto_increment, cpf varchar(14) not null, id_vaga bigint not null not null, status varchar(256), primary key(id), foreign key(cpf) references Profissional(cpf), foreign key(id_vaga) references Vaga(id));
 
 
 insert into Usuario(nome, documento, login, senha, papel) values ('Administrador', "admin", 'admin', 'admin', 'ADMIN');
 
-insert into Usuario(nome, documento, login, senha, papel) values ('Barbearia do Jose', '12.345.678/0008-99', 'josebarbearia@jbarbe.com', 'barbariajose123', 'EMPR');
+insert into Usuario(nome, documento, login, senha, papel) values ('jose', '12.345.678/0008-99', 'jose', 'jose', 'EMPR');
 insert into Usuario(nome, documento, login, senha, papel) values ('Tecnomagia', '12.456.111/0002-12', 'tecnomagia@gmail.com', 'magosunidos123', 'EMPR');
 insert into Usuario(nome, documento, login, senha, papel) values ('Escola Fulaninho', '11.115.228/2228-11', 'escfulaninho@fulaninho.com', 'fulaninho@462', 'EMPR');
 insert into Usuario(nome, documento, login, senha, papel) values ('Amazon', '21.739.316/0001-70', 'amazon@amazon.com', 'UmaSenhaSegur@2', 'EMPR');
@@ -64,3 +66,5 @@ insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('An
 insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('Padeiro', 'Avancado', '10', '6000', '85.424.990/0001-48');
 insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('Atendente', 'Basico', '1', '1500', '85.424.990/0001-48');
 insert into Vaga(funcao, nivel, anosContrato, salario, empresa_cnpj) values ('Photographer', 'Advanced', '4', '8000', '42.271.979/0001-82');
+
+insert into Candidatura(id, cpf, id_vaga, status) values (1, '296.332.571-15', 1, "ABERTO");

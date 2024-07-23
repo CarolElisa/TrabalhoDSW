@@ -71,6 +71,9 @@
 								href="/${requestScope.contextPath}/vagas/edicao?id=${vaga.id}">Editar
 									</a>
 									<a
+								href="/${requestScope.contextPath}/vagas/candidatura?id_vaga=${vaga.id}">Analisar
+									</a>
+									<a
 								href="/${requestScope.contextPath}/vagas/remocao?id=${vaga.id}"
 								onclick="return confirm('Tem certeza de que deseja excluir este item?');">
 									Remover </a>

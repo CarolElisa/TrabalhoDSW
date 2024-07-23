@@ -39,6 +39,7 @@
 					<td>${empresa.senha}</td>
 					<td>${empresa.cidade}</td>
 					<td><a href="/${requestScope.contextPath}/empresas/edicao?cnpj=${empresa.cnpj}">Edição</a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a href="/${requestScope.contextPath}/empresas/edicao?cnpj=${empresa.cnpj}">Analise</a>
 						&nbsp;&nbsp;&nbsp;&nbsp; <a
 						href="/${requestScope.contextPath}/empresas/remocao?cnpj=${empresa.cnpj}"
 						onclick="return confirm('Tem certeza de que deseja excluir este item?');">

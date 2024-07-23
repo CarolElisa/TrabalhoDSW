@@ -3,6 +3,7 @@ package br.ufscar.dc.dsw.controller;
 import br.ufscar.dc.dsw.dao.EmpresaDAO;
 import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.domain.Empresa;
+import br.ufscar.dc.dsw.domain.Vaga;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.util.Erro;
 
@@ -78,6 +79,7 @@ public class EmpresaController extends HttpServlet {
                 case "/atualizacao":
                     atualize(request, response);
                     break;
+
                 default:
                     lista(request, response);
                     break;
@@ -96,6 +98,8 @@ public class EmpresaController extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
+
+
     private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cnpj = (request.getParameter("cnpj"));

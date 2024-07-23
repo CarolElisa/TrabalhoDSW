@@ -4,6 +4,7 @@ import br.ufscar.dc.dsw.dao.EmpresaDAO;
 import br.ufscar.dc.dsw.dao.UsuarioDAO;
 import br.ufscar.dc.dsw.dao.VagaDAO;
 import br.ufscar.dc.dsw.domain.Empresa;
+import br.ufscar.dc.dsw.domain.Candidatura;
 import br.ufscar.dc.dsw.domain.Vaga;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.util.Erro;
@@ -76,6 +77,16 @@ public class VagaController extends HttpServlet {
                 case "/atualizacao":
                     atualize(request, response);
                     break;
+                case "/candidatura":
+                    listaCandidaturas(request,response);
+                    break;
+                case "/recusar":
+                    aprovarRecusarCandidatura(request,response, "RECUSADO");
+                break;
+
+                case "/aprovar":
+                    aprovarRecusarCandidatura(request,response, "APROVADO");
+                break;
                 default:
                     lista(request, response);
                     break;
@@ -110,6 +121,23 @@ public class VagaController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/lista.jsp");
         dispatcher.forward(request, response);
     }
+
+    private void listaCandidaturas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Candidatura> listaCandidaturas = null;
+        Long id_vaga = Long.parseLong(request.getParameter("id_vaga"));
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+        if(usuario.getPapel().equals("EMPR"))
+        {
+            listaCandidaturas = dao.getCandidaturaVagaEspecifica(id_vaga);
+        }
+        
+        
+        request.setAttribute("listaCandidaturas", listaCandidaturas);
+        request.setAttribute("contextPath", request.getContextPath().replace("/", ""));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/vaga/listaCandidaturas.jsp");
+        dispatcher.forward(request, response);
+    }
+
 
     private Map<String, String> getEmpresas() {
         Map<String, String> empresas = new HashMap<>();
@@ -197,6 +225,21 @@ public class VagaController extends HttpServlet {
         Vaga vaga = new Vaga(id, titulo, autor, ano, preco, empresa);
         dao.update(vaga);
         response.sendRedirect("lista");
+    }
+
+    private void aprovarRecusarCandidatura(HttpServletRequest request, HttpServletResponse response, String aprovado)
+            throws ServletException, IOException {
+        System.out.println("antes");        
+        request.setCharacterEncoding("UTF-8");
+        Long id = Long.parseLong(request.getParameter("id"));
+        VagaDAO vDao = new VagaDAO();
+        Vaga v = vDao.get(id);
+        String cpf = request.getParameter("cpf");
+        String empresaCNPJ = request.getParameter("empresa");
+        Empresa empresa = new EmpresaDAO().get(empresaCNPJ);
+
+        dao.aprovaRecusa(v, aprovado, cpf);
+        response.sendRedirect("listaCandidaturas");
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws IOException {
