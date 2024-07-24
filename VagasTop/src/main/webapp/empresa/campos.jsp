@@ -3,7 +3,7 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<fmt:bundle basename="message">
 <table border="1">
 	<caption>
 		<c:choose>
@@ -78,3 +78,4 @@
 		<td colspan="2" align="center"><input type="submit" value="Salva" /></td>
 	</tr>
 </table>
+</fmt:bundle>

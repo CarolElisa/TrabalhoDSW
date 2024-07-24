@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -13,15 +13,15 @@
 	<body>
 		<div align="center">
 			<h1>
-				<fmt:message key="users.welcome" />
+				<fmt:message key="user.welcome" />
 			</h1>
 			<h2>
 			    <a href="/${sessionScope.contextPath}/empresas"> 
-			    	<fmt:message key="publishers.entity" />
+			    	<fmt:message key="empresas.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
 			    <a href="/${sessionScope.contextPath}/vagas"> 
-			    	<fmt:message key="books.entity" />
+			    	<fmt:message key="vaga.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
 				<a href="/${sessionScope.contextPath}/profissionais"> 
@@ -34,10 +34,10 @@
 				<br/>
 				<br/>
 				<a href="/${sessionScope.contextPath}/usuarios/cadastro"> 
-					<fmt:message key="users.create" />
+					<fmt:message key="user.create" />
 				</a> 
 			</h2>
-			<h3><fmt:message key="users.list" /></h3>
+			<h3><fmt:message key="user.list" /></h3>
 			<br/>
 		</div>
 		<div align="center">
@@ -62,13 +62,13 @@
 						<td><c:out value="${usuario.documento}"/></td>
 						<td><a
 							href="/${sessionScope.contextPath}/usuarios/edicao?id=<c:out value='${usuario.id}' />">
-								<fmt:message key="users.update" />
+								<fmt:message key="user.update" />
 						</a> 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <a
 									href="/${sessionScope.contextPath}/usuarios/remocao?id=<c:out value='${usuario.id}' />"
 									onclick="return confirm('OK');">
-									<fmt:message key="users.delete" />
+									<fmt:message key="user.delete" />
 								</a>
 						</td>
 					</tr>

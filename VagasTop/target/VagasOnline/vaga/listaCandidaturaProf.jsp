@@ -10,15 +10,15 @@
 <body>
 	<div align="center">
 		<h1>
-			<fmt:message key="books.welcome" />
+			<fmt:message key="vaga.welcome" />
 		</h1>
 		<h2>
 			<a href="/${sessionScope.contextPath}/empresas">
-				<fmt:message key="books.entity" />
+				<fmt:message key="vaga.entity" />
 			</a>
 			&nbsp;&nbsp;&nbsp;
 			<a href="/${sessionScope.contextPath}/usuarios"> 
-				<fmt:message key="users.entity" />
+				<fmt:message key="user.entity" />
 			</a> 
 			&nbsp;&nbsp;&nbsp;
 			<a href="${pageContext.request.contextPath}/logout.jsp">
@@ -27,13 +27,13 @@
 			<br/>
 			<br/>
 			<a href="/${sessionScope.contextPath}/vagas/lista">
-				<fmt:message key="books.list" />
+				<fmt:message key="vaga.list" />
 			</a>
 			<a href="/${sessionScope.contextPath}/vagas/cadastro">
-				<fmt:message key="books.create" />
+				<fmt:message key="vaga.create" />
 			</a>
 		</h2>
-		<h3><fmt:message key="books.list" /></h3>
+		<h3><fmt:message key="vaga.list" /></h3>
 		<br/>
 	</div>
 

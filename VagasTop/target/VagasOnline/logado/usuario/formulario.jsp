@@ -17,11 +17,11 @@
 			</h1>
 			<h2>
 				<a href="/${sessionScope.contextPath}/empresas"> 
-			    	<fmt:message key="publishers.entity" />
+			    	<fmt:message key="empresas.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
 			    <a href="/${sessionScope.contextPath}/vagas"> 
-			    	<fmt:message key="books.entity" />
+			    	<fmt:message key="vaga.entity" />
 				</a> 
 				&nbsp;&nbsp;&nbsp;
 				<a href="/${sessionScope.contextPath}/profissionais"> 

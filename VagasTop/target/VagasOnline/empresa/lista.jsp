@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
+	<fmt:bundle basename="message">
 <head>
 <title>Lista de empresas virtual</title>
 </head>
@@ -49,4 +50,5 @@
 		</table>
 	</div>
 </body>
+</fmt:bundle>
 </html>

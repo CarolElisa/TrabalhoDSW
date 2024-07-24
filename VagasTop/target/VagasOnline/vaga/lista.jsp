@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
+<fmt:bundle basename="message">	
 <head>
 <title>Lista de vagas virtual</title>
 </head>
 <body>
 	<div align="center">
 		<h1>
-			<fmt:message key="books.welcome" />
+			<fmt:message key="vaga.welcome" />
 		</h1>
 
 
@@ -19,15 +19,15 @@
 			<c:choose>
 				<c:when test="${tipoUser == 'admin'}">
 					<a href="/${sessionScope.contextPath}/empresas">
-						<fmt:message key="publisher.entity" />
+						<fmt:message key="empresa.entity" />
 					</a>
 					&nbsp;&nbsp;&nbsp;
 					<a href="/${sessionScope.contextPath}/usuarios"> 
-						<fmt:message key="users.entity" />
+						<fmt:message key="user.entity" />
 					</a> 
 					&nbsp;&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath}/vagas.jsp">
-						<fmt:message key="books.link" />
+						<fmt:message key="vaga.link" />
 					</a>
 					&nbsp;&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath}/logout.jsp">
@@ -41,7 +41,7 @@
 					
 					<br/>
 					<a href="/${sessionScope.contextPath}/vagas/cadastro">
-						<fmt:message key="books.create" />
+						<fmt:message key="vaga.create" />
 					</a>
 					&nbsp;&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath}/logout.jsp">
@@ -63,7 +63,7 @@
 				</c:when>
 		</c:choose>
 		</h2>
-		<h3><fmt:message key="books.list" /></h3>
+		<h3><fmt:message key="vaga.list" /></h3>
 		<br/>
 	</div>
 
@@ -125,4 +125,5 @@
 		</table>
 	</div>
 </body>
+</fmt:bundle>
 </html>
