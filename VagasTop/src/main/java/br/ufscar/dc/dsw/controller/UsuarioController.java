@@ -139,7 +139,7 @@ public class UsuarioController extends HttpServlet {
 		Long id = Long.parseLong(request.getParameter("id"));
 
 		Usuario usuario = dao.get(id);
-		System.out.println("deletando usuario...");
+
 		dao.delete(usuario);
 		response.sendRedirect("lista");
 	}

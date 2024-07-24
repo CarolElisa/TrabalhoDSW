@@ -183,7 +183,23 @@ public class EmpresaDAO extends GenericDAO {
         }
     }
     public void delete(Empresa empresa) {
-        String sql = "DELETE FROM Vaga where empresa_cnpj = ?";
+        String sql = "DELETE FROM CANDIDATURA where ID_VAGA IN (SELECT ID FROM VAGA WHERE EMPRESA_CNPJ = ?)";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, empresa.getCnpj());
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        sql = "DELETE FROM Vaga where empresa_cnpj = ?";
 
         try {
             Connection conn = this.getConnection();

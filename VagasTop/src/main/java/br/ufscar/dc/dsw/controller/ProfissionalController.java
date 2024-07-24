@@ -105,9 +105,12 @@ public class ProfissionalController extends HttpServlet {
 
     private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String cpf = request.getParameter("cpf");
-        Long id = Long.parseLong((request.getParameter("cpf")));
-        Profissional profissional = dao.getEdicao(id);
+        ProfissionalDAO pDao = new ProfissionalDAO();
+        Profissional p = pDao.get(cpf);
+        Profissional profissional = dao.getEdicao(p.getId());
+        
         request.setAttribute("profissional", profissional);
         request.setAttribute("cpf", cpf);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profissional/formulario.jsp");
