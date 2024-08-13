@@ -1,11 +1,5 @@
 # TrabalhoDSW
 
-Grupo:
-
-      Caroline Elisa Duarte de Souza - 795565
-      Leandro Keller salto - 791014
-      Mauricio Herrera Fontes - 790986
---------------------------------------------------------------------------------------------------------
 Documento de requisitos: 
      
 R1: -> Implementado: Caroline 33%, Leandro 33%, Mauricio 33%
