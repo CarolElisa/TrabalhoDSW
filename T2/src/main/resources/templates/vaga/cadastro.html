@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastrar Vagas</span></li>
+				</ul>
+			</div>
+			<a class="btn btn-primary btn-md" th:href="@{/vagas/listar}"
+				role="button"> <span class="oi oi-spreadsheet" title="Cadastro"
+				aria-hidden="true"></span> <span>Listar Vagas</span>
+			</a>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="~{fragments/alert}"></div>
+
+			<form
+				th:action="${vaga.id == null} ? @{/vagas/salvar} : @{/vagas/editar}"
+				th:object="${vaga}" method="POST">
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome">Nome</label> 
+						<input type="text" class="form-control" id="nome" placeholder="Nome"
+							autofocus="autofocus" th:field="*{nome}"
+							th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
+						
+						<div class="invalid-feedback">
+							<span th:errors="*{nome}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="nome">Nivel</label> 
+						<input type="text" class="form-control" id="nome" placeholder="Nivel"
+							autofocus="autofocus" th:field="*{nivel}"
+							th:classappend="${#fields.hasErrors('nivel')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{nivel}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="nome">Descrição</label> 
+						<input type="text" class="form-control" id="nome" placeholder="Descrição"
+							autofocus="autofocus" th:field="*{descricao}"
+							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{descricao}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="empresa">Empresa</label> 
+						<select id="empresa" class="form-control" th:field="*{empresa}"
+							th:classappend="${#fields.hasErrors('empresa')} ? is-invalid">
+							<option value="">Selecione</option>
+							<option th:each="empresa : ${empresas}" th:value="${empresa.id}"
+								th:text="${empresa.nome}"></option>
+						</select>
+
+						<div class="invalid-feedback">
+							<span th:errors="*{empresa}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="nome">AnosContrato</label> 
+						<input type="number" class="form-control" id="nome" placeholder="AnosContratos"
+							autofocus="autofocus" th:field="*{anosContrato}"
+							th:classappend="${#fields.hasErrors('anosContrato')} ? is-invalid" />
+						
+						<div class="invalid-feedback">
+							<span th:errors="*{anosContrato}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="salario">Salário</label> 
+						<input type="text" class="form-control" id="salario" placeholder="Salário"
+							data-mask="000000,00" data-mask-reverse="true" th:field="*{salario}"
+							th:classappend="${#fields.hasErrors('salario')} ? is-invalid" />
+						
+						<div class="invalid-feedback">
+							<span th:errors="*{salario}"></span>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" id="id" th:field="*{id}" />
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
