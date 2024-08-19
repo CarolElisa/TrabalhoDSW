@@ -14,24 +14,23 @@ public class ErrorViewController implements ErrorViewResolver {
 
 	@Override
 	public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> map) {
-		
+		        
 		ModelAndView model = new ModelAndView("error");
 		model.addObject("status", status.value());
 		switch (status.value()) {
-				case 404:
-					model.addObject("error", "Página não encontrada.");
-					model.addObject("message", "A url para a página '" + map.get("path") + "' não existe.");
-					break;
-				case 500:
-					model.addObject("error", "Ocorreu um erro interno no servidor.");
-					model.addObject("message", "Ocorreu um erro inexperado, tente mais tarde.");
-					break;
-				default:
-					model.addObject("error", map.get("error"));
-					model.addObject("message", map.get("message"));
-					break;
-		}		
+		case 403:
+			model.addObject("error", "403.error");
+			model.addObject("message", "403.message");
+			break;
+		case 404:
+			model.addObject("error", "404.error");
+			model.addObject("message", "404.message");
+			break;
+		default:
+			model.addObject("error", "default.error");
+			model.addObject("message", "default.message");
+			break;
+		}
 		return model;
 	}
-
 }

@@ -9,7 +9,7 @@ import jakarta.persistence.MappedSuperclass;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
-public abstract class Entidade<ID extends Serializable> implements Serializable {
+public abstract class AbstractEntity<ID extends Serializable> implements Serializable {
 	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public abstract class Entidade<ID extends Serializable> implements Serializable 
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entidade<?> other = (Entidade<?>) obj;
+		AbstractEntity<?> other = (AbstractEntity<?>) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -6,7 +6,7 @@
 <meta name="author" content="" />
 <link rel="icon" th:href="@{/image/favicon.png}" />
 
-<title th:text="${status}"></title>
+<title th:text="#{error.page.title}"></title>
 
 <!-- Bootstrap core CSS -->
 <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
@@ -21,11 +21,14 @@
 			<span th:text="${status}"></span>
 		</h1>
 		
-		<h2 th:text="${error}"></h2>
+		<h2 th:text="#{${error}}"></h2>
+		
+		<hr/>
 		
 		<div>
-			<span th:text="${message}"></span><br/><br/>
-			<a class="btn btn-primary" type="button" href="javascript:history.back()">Voltar a página anterior</a>
+			<span th:text="#{${message}}"></span><br />
+			<br /> <a class="btn btn-primary" type="button"
+				href="javascript:history.back()"><span th:text="#{previous.message}"></span></a>
 		</div>
 	</div>
 </body>

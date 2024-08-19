@@ -2,7 +2,6 @@ package br.ufscar.dc.dsw.domain;
 
 import java.math.BigDecimal;
 
-import br.ufscar.dc.dsw.validation.UniqueCNPJ;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +14,7 @@ import jakarta.validation.constraints.Size;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Vaga")
-public class Vaga extends Entidade<Long> {
+public class Vaga extends AbstractEntity<Long> {
 
 	@NotBlank(message = "{NotBlank.vaga.nome}")
 	@Size(max = 60)
@@ -26,19 +25,13 @@ public class Vaga extends Entidade<Long> {
 	@Size(max = 60)
 	@Column(nullable = false, length = 60)
 	private String nivel;
-
-	
-	@NotBlank(message = "{NotBlank.vaga.descricao}")
-	@Size(max = 250)
-	@Column(nullable = false, length = 250)
-	private String descricao;
     
 	@NotNull(message = "{NotNull.vaga.anosContrato}")
 	@Column(nullable = false, length = 5)
 	private Integer anosContrato;
 	
 	@NotNull(message = "{NotNull.vaga.salario}")
-	@Column(nullable = false, columnDefinition = "DECIMAL(9,2) DEFAULT 500.0")
+	@Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
 	private BigDecimal salario;
     
 	@NotNull(message = "{NotNull.vaga.empresa}")
@@ -46,35 +39,35 @@ public class Vaga extends Entidade<Long> {
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
-	public String getNome() {
+	public String getTitulo() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setTitulo(String nome) {
 		this.nome = nome;
 	}
 
-	public String getNivel() {
+	public String getAutor() {
 		return nivel;
 	}
 
-	public void setNivel(String nivel) {
+	public void setAutor(String nivel) {
 		this.nivel = nivel;
 	}
 
-	public Integer getAnosContrato() {
+	public Integer getAno() {
 		return anosContrato;
 	}
 
-	public void setAnosContrato(Integer anosContrato) {
+	public void setAno(Integer anosContrato) {
 		this.anosContrato = anosContrato;
 	}
 
-	public BigDecimal getSalario() {
+	public BigDecimal getsalario() {
 		return salario;
 	}
 
-	public void setSalario(BigDecimal salario) {
+	public void setsalario(BigDecimal salario) {
 		this.salario = salario;
 	}
 
@@ -84,15 +77,5 @@ public class Vaga extends Entidade<Long> {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
-
-	public String getDescricao()
-	{
-		return this.descricao;
-	}
-
-	public void setDescricao(String descricao)
-	{
-		this.descricao = descricao;
 	}
 }

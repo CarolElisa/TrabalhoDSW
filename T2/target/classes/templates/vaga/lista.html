@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
 <head>
-<meta charset="UTF-8" />
 </head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
@@ -11,13 +10,13 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
 						<i class="oi oi-caret-right"></i>
-						<span>Lista de Vagas</span>
+						<span th:text="#{vaga.listar.label}"></span>
 					</li>
 				</ul>
 			</div>
 			<a class="btn btn-primary btn-md" th:href="@{/vagas/cadastrar}" role="button"> 
 				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
-				<span>Nova Vaga</span>
+				<span th:text="#{vaga.cadastrar.label}"></span>
 			</a>
 		</nav>
 
@@ -30,13 +29,12 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Nome</th>
-							<th>Nivel</th>
-							<th>Descrição</th>
-							<th>Empresa</th>
-							<th>Anos de Contrato</th>
-							<th>Salário</th>
-							<th>Ação</th>
+							<th th:text="#{vaga.nome.label}"></th>
+							<th th:text="#{vaga.nivel.label}"></th>
+							<th th:text="#{vaga.empresa.label}"></th>
+							<th th:text="#{vaga.anosContrato.label}"></th>
+							<th th:text="#{vaga.salario.label}"></th>
+							<th th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
 					<tbody>						
@@ -44,18 +42,17 @@
 							<td th:text="${vaga.id}"></td>
 							<td th:text="${vaga.nome}"></td>
 							<td th:text="${vaga.nivel}"></td>
-							<td th:text="${vaga.descricao}"></td>
 							<td th:text="${vaga.empresa.nome}"></td>
 							<td th:text="${vaga.anosContrato}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(vaga.salario,2,2,'COMMA')}|"></td>
 							<td colspan="2">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/vagas/editar/{id} (id=${vaga.id}) }" role="button"> 
-									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"></span>
 								</a>
 								<button th:id="${#strings.concat('btn_vagas/excluir/',vaga.id)}" 
 									type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
 								</button>
 							</td>
 						</tr>

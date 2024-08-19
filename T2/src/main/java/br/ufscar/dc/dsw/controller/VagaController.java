@@ -49,7 +49,7 @@ public class VagaController {
 		}
 
 		vagaService.salvar(vaga);
-		attr.addFlashAttribute("sucess", "Vaga inserido com sucesso");
+		attr.addFlashAttribute("sucess", "vaga.create.sucess");
 		return "redirect:/vagas/listar";
 	}
 
@@ -67,14 +67,14 @@ public class VagaController {
 		}
 
 		vagaService.salvar(vaga);
-		attr.addFlashAttribute("sucess", "Vaga editado com sucesso.");
+		attr.addFlashAttribute("sucess", "vaga.edit.sucess");
 		return "redirect:/vagas/listar";
 	}
 
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
 		vagaService.excluir(id);
-		attr.addFlashAttribute("sucess", "Vaga excluído com sucesso.");
+		attr.addFlashAttribute("sucess", "vaga.delete.sucess");
 		return "redirect:/vagas/listar";
 	}
 

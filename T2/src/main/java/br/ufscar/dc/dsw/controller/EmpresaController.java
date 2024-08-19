@@ -41,7 +41,7 @@ public class EmpresaController {
 		}
 		
 		service.salvar(empresa);
-		attr.addFlashAttribute("sucess", "Empresa inserida com sucesso.");
+		attr.addFlashAttribute("sucess", "empresa.create.sucess");
 		return "redirect:/empresas/listar";
 	}
 	
@@ -61,17 +61,17 @@ public class EmpresaController {
 		}
 
 		service.salvar(empresa);
-		attr.addFlashAttribute("sucess", "Empresa editada com sucesso.");
+		attr.addFlashAttribute("sucess", "empresa.edit.sucess");
 		return "redirect:/empresas/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, ModelMap model) {
 		if (service.empresaTemVagas(id)) {
-			model.addAttribute("fail", "Empresa não excluída. Possui vaga(s) vinculado(s).");
+			model.addAttribute("fail", "empresa.delete.fail");
 		} else {
 			service.excluir(id);
-			model.addAttribute("sucess", "Empresa excluída com sucesso.");
+			model.addAttribute("sucess", "empresa.delete.sucess");
 		}
 		return listar(model);
 	}
