@@ -39,35 +39,35 @@ public class Vaga extends AbstractEntity<Long> {
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
-	public String getTitulo() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setTitulo(String nome) {
+	public void setNivel(String nome) {
 		this.nome = nome;
 	}
 
-	public String getAutor() {
+	public String getNivel() {
 		return nivel;
 	}
 
-	public void setAutor(String nivel) {
+	public void setNome(String nivel) {
 		this.nivel = nivel;
 	}
 
-	public Integer getAno() {
+	public Integer getAnosContrato() {
 		return anosContrato;
 	}
 
-	public void setAno(Integer anosContrato) {
+	public void setAnosContrato(Integer anosContrato) {
 		this.anosContrato = anosContrato;
 	}
 
-	public BigDecimal getsalario() {
+	public BigDecimal getSalario() {
 		return salario;
 	}
 
-	public void setsalario(BigDecimal salario) {
+	public void setSalario(BigDecimal salario) {
 		this.salario = salario;
 	}
 

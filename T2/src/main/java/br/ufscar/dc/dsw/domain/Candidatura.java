@@ -54,7 +54,7 @@ public class Candidatura extends AbstractEntity<Long> {
 
 	public void setVaga(Vaga vaga) {
 		this.vaga = vaga;
-		setValor(vaga.getsalario());
+		setValor(vaga.getSalario());
 	}
 
 	public Usuario getUsuario() {

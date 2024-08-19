@@ -69,26 +69,26 @@ public class LivrariaMvcApplication {
 			empresaDAO.save(e3);
 			
 			Vaga l1 = new Vaga();
-			l1.setTitulo("Ensaio sobre a Cegueira");
-			l1.setAutor("José Saramago");
-			l1.setAno(1995);
-			l1.setsalario(BigDecimal.valueOf(54.9));
+			l1.setNome("Ensaio sobre a Cegueira");
+			l1.setNivel("José Saramago");
+			l1.setAnosContrato(1995);
+			l1.setSalario(BigDecimal.valueOf(54.9));
 			l1.setEmpresa(e1);
 			vagaDAO.save(l1);
 			
 			Vaga l2 = new Vaga();
-			l2.setTitulo("Cem anos de Solidão");
-			l2.setAutor("Gabriel Garcia Márquez");
-			l2.setAno(1977);
-			l2.setsalario(BigDecimal.valueOf(59.9));
+			l2.setNome("Cem anos de Solidão");
+			l2.setNivel("Gabriel Garcia Márquez");
+			l2.setAnosContrato(1977);
+			l2.setSalario(BigDecimal.valueOf(59.9));
 			l2.setEmpresa(e2);
 			vagaDAO.save(l2);
 			
 			Vaga l3 = new Vaga();
-			l3.setTitulo("Diálogos Impossíveis");
-			l3.setAutor("Luis Fernando Verissimo");
-			l3.setAno(2012);
-			l3.setsalario(BigDecimal.valueOf(22.9));
+			l3.setNome("Diálogos Impossíveis");
+			l3.setNivel("Luis Fernando Verissimo");
+			l3.setAnosContrato(2012);
+			l3.setSalario(BigDecimal.valueOf(22.9));
 			l3.setEmpresa(e3);
 			vagaDAO.save(l3);
 		};
