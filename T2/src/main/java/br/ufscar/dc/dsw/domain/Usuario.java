@@ -19,14 +19,6 @@ public class Usuario extends AbstractEntity<Long> {
     private String password;
        
     @NotBlank
-    @Column(nullable = false, length = 60)
-    private String name;
-    
-    @NotBlank
-    @Column(nullable = false, length = 14)
-    private String CPF;
-    
-    @NotBlank
     @Column(nullable = false, length = 10)
     private String role;
     
@@ -47,23 +39,6 @@ public class Usuario extends AbstractEntity<Long> {
 	
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
-	public String getCPF() {
-		return CPF;
-	}
-
-	public void setCPF(String cPF) {
-		CPF = cPF;
 	}
 
 	public String getRole() {

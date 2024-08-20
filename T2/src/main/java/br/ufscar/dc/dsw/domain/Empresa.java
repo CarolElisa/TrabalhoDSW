@@ -1,56 +1,60 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.util.List;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import br.ufscar.dc.dsw.validation.UniqueCNPJ;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Empresa")
-public class Empresa extends AbstractEntity<Long> {
+@PrimaryKeyJoinColumn(name = "id")
+public class Empresa extends Usuario {
 
-	@UniqueCNPJ (message = "{Unique.empresa.CNPJ}")
-	@NotBlank
-	@Size(min = 18, max = 18, message = "{Size.empresa.CNPJ}")
-	@Column(nullable = false, unique = true, length = 60)
-	private String CNPJ;
-	
-	@NotBlank
-	@Size(min = 3, max = 60)
-	@Column(nullable = false, unique = true, length = 60)
-	private String nome;
+    @NotBlank
+    @Column(nullable = false, length = 18, unique = true)
+    private String cnpj;
+    
+    @NotBlank
+    @Column(nullable = false, length = 100)
+    private String nome;
 
-	@OneToMany(mappedBy = "empresa")
-	private List<Vaga> vagas;
-	
-	public String getCNPJ() {
-		return CNPJ;
-	}
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vaga> vagas = new ArrayList<>();
 
-	public void setCNPJ(String CNPJ) {
-		this.CNPJ = CNPJ;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
+    // Getters and Setters
+    
+    public String getCnpj() {
+        return cnpj;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
 
-	public List<Vaga> getVagas() {
-		return vagas;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setVagas(List<Vaga> vagas) {
-		this.vagas = vagas;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Vaga> getVagas() {
+        return vagas;
+    }
+
+    public void setVagas(List<Vaga> vagas) {
+        this.vagas = vagas;
+    }
+
+
 }

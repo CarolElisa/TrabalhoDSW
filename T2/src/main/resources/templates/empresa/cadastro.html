@@ -40,15 +40,15 @@
 					</div>
 
 					<div class="form-group col-md-6">
-						<label th:text="#{empresa.cnpj.label}" for="CNPJ"></label> 
-						<input type="text" class="form-control" id="CNPJ" autofocus="autofocus"
-							th:field="*{CNPJ}" placeholder="__.___.___/____-__"
+						<label th:text="#{empresa.cnpj.label}" for="Cnpj"></label> 
+						<input type="text" class="form-control" id="Cnpj" autofocus="autofocus"
+							th:field="*{Cnpj}" placeholder="__.___.___/____-__"
 							th:readonly="${empresa.id != null}"
 							data-mask="00.000.000/0000-00" data-mask-reverse="true"
-							th:classappend="${#fields.hasErrors('CNPJ')} ? is-invalid" />
+							th:classappend="${#fields.hasErrors('Cnpj')} ? is-invalid" />
 							
 						<div class="invalid-feedback">
-							<span th:errors="*{CNPJ}"></span>
+							<span th:errors="*{Cnpj}"></span>
 						</div>
 					</div>
 				</div>
