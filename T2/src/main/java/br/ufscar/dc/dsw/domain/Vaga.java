@@ -17,11 +17,12 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Vaga")
 public class Vaga extends Entidade<Long> {
 
-	@NotBlank(message = "{NotBlank.vaga.nome}")
-	@Size(max = 60)
-	@Column(nullable = false, length = 60)
-	private String nome;
+    @NotBlank(message = "{NotBlank.vaga.nome}")
+    @Size(max = 60)
+    @Column(nullable = false, length = 60)
+    private String nome;
 
+<<<<<<< Updated upstream
 	@NotBlank(message = "{NotBlank.vaga.nivel}")
 	@Size(max = 60)
 	@Column(nullable = false, length = 60)
@@ -40,48 +41,83 @@ public class Vaga extends Entidade<Long> {
 	@NotNull(message = "{NotNull.vaga.salario}")
 	@Column(nullable = false, columnDefinition = "DECIMAL(9,2) DEFAULT 500.0")
 	private BigDecimal salario;
+=======
+    @NotBlank(message = "{NotBlank.vaga.nivel}")
+    @Size(max = 60)
+    @Column(nullable = false, length = 60)
+    private String nivel;
     
-	@NotNull(message = "{NotNull.vaga.empresa}")
-	@ManyToOne
-	@JoinColumn(name = "empresa_id")
-	private Empresa empresa;
+    @NotNull(message = "{NotNull.vaga.anosContrato}")
+    @Column(nullable = false, length = 5)
+    private Integer anosContrato;
+>>>>>>> Stashed changes
+    
+    @NotNull(message = "{NotNull.vaga.salario}")
+    @Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
+    private BigDecimal salario;
+    
+    @NotNull(message = "{NotNull.vaga.empresa}")
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
-	public String getNome() {
-		return nome;
-	}
 
+<<<<<<< Updated upstream
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+=======
+    // Getters and Setters
+>>>>>>> Stashed changes
 
-	public String getNivel() {
-		return nivel;
-	}
+    public String getNome() {
+        return nome;
+    }
 
+<<<<<<< Updated upstream
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
+=======
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+>>>>>>> Stashed changes
 
-	public Integer getAnosContrato() {
-		return anosContrato;
-	}
+    public String getNivel() {
+        return nivel;
+    }
 
-	public void setAnosContrato(Integer anosContrato) {
-		this.anosContrato = anosContrato;
-	}
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
 
-	public BigDecimal getSalario() {
-		return salario;
-	}
+    public Integer getAnosContrato() {
+        return anosContrato;
+    }
 
-	public void setSalario(BigDecimal salario) {
-		this.salario = salario;
-	}
+    public void setAnosContrato(Integer anosContrato) {
+        this.anosContrato = anosContrato;
+    }
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public BigDecimal getSalario() {
+        return salario;
+    }
 
+    public void setSalario(BigDecimal salario) {
+        this.salario = salario;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+
+<<<<<<< Updated upstream
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
@@ -95,4 +131,6 @@ public class Vaga extends Entidade<Long> {
 	{
 		this.descricao = descricao;
 	}
+=======
+>>>>>>> Stashed changes
 }

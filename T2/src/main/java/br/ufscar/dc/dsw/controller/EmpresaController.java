@@ -54,9 +54,9 @@ public class EmpresaController {
 	@PostMapping("/editar")
 	public String editar(@Valid Empresa empresa, BindingResult result, RedirectAttributes attr) {
 		
-		// Apenas rejeita se o problema não for com o CNPJ (CNPJ campo read-only) 
+		// Apenas rejeita se o problema não for com o Cnpj (Cnpj campo read-only) 
 		
-		if (result.getFieldErrorCount() > 1 || result.getFieldError("CNPJ") == null) {
+		if (result.getFieldErrorCount() > 1 || result.getFieldError("Cnpj") == null) {
 			return "empresa/cadastro";
 		}
 

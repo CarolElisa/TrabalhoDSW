@@ -41,8 +41,13 @@
 					</div>
 
 					<div class="form-group col-md-6">
+<<<<<<< Updated upstream
 						<label for="nome">Nivel</label> 
 						<input type="text" class="form-control" id="nome" placeholder="Nivel"
+=======
+						<label th:text="#{vaga.nivel.label}" for="nome"></label> 
+						<input type="text" class="form-control" id="nome" placeholder="Autor"
+>>>>>>> Stashed changes
 							autofocus="autofocus" th:field="*{nivel}"
 							th:classappend="${#fields.hasErrors('nivel')} ? is-invalid" />
 

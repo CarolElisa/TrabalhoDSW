@@ -40,6 +40,7 @@
 					</div>
 
 					<div class="form-group col-md-6">
+<<<<<<< Updated upstream
 						<label for="CNPJ">CNPJ</label> 
 						<input type="text" class="form-control" id="CNPJ" placeholder="__.___.___/____-__"
 							th:readonly="${empresa.id != null}"
@@ -47,8 +48,17 @@
 							th:classappend="${#fields.hasErrors('CNPJ')} ? is-invalid" 
 							data-mask="00.000.000/0000-00" data-mask-reverse="true" />
 						                               
+=======
+						<label th:text="#{empresa.cnpj.label}" for="Cnpj"></label> 
+						<input type="text" class="form-control" id="Cnpj" autofocus="autofocus"
+							th:field="*{Cnpj}" placeholder="__.___.___/____-__"
+							th:readonly="${empresa.id != null}"
+							data-mask="00.000.000/0000-00" data-mask-reverse="true"
+							th:classappend="${#fields.hasErrors('Cnpj')} ? is-invalid" />
+							
+>>>>>>> Stashed changes
 						<div class="invalid-feedback">
-							<span th:errors="*{CNPJ}"></span>
+							<span th:errors="*{Cnpj}"></span>
 						</div>
 					</div>
 				</div>
