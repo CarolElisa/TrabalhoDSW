@@ -27,7 +27,23 @@
 				th:action="${empresa.id == null} ? @{/empresas/salvar} : @{/empresas/editar}"
 				th:object="${empresa}" method="POST">
 
+
+
 				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label th:text="#{empresa.usuario}" for="usuario"></label> 
+						<select id="usuario" class="form-control" th:field="*{usuario}"
+							th:classappend="${#fields.hasErrors('usuario')} ? is-invalid">
+							<option value="">Selecione</option>
+							<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+								th:text="${usuario.username}"></option>
+						</select>
+	
+						<div class="invalid-feedback">
+							<span th:errors="*{usuario}"></span>
+						</div>
+					</div>
+
 					<div class="form-group col-md-6">
 						<label th:text="#{empresa.nome.label}" for="nome"></label> 
 						<input type="text" class="form-control" id="nome" autofocus="autofocus"

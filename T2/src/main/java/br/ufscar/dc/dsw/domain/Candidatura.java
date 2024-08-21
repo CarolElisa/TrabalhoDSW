@@ -45,8 +45,8 @@ public class Candidatura {
     public Vaga getVaga() {
         return vaga;
     }
-
-    public void setVaga(Vaga vaga) {
+    
+    public void setVaga(Vaga vaga){
         this.vaga = vaga;
     }
 }

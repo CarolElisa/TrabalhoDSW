@@ -35,9 +35,18 @@ public class UsuarioService implements IUsuarioService {
 		return dao.findAll();
 	}
 
-	@Override
+	@Transactional
     public Usuario buscarPorUsername(String username) {
         return dao.findByUsername(username);
     }
 
+	@Transactional
+	public List<Usuario> getUsuariosSemEmpresa() {
+        return dao.findUsuariosSemEmpresa();
+    }
+
+	@Transactional
+	public List<Usuario> getUsuariosSemProfissional() {
+        return dao.findUsuariosSemProfissional();
+    }
 }

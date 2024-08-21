@@ -13,16 +13,17 @@
 					class="oi oi-home"></i> <span th:text="#{sidebar.link.home}"></span>
 			</a></li>
 		</ul>
-		<div sec:authorize="hasRole('ROLE_USER')">
+
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
-					th:text="#{sidebar.nome.candidatura}"></span></li>
+					th:text="#{sidebar.nome.usuario}"></span></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{/candidaturas/cadastrar}"> <i class="oi oi-plus"></i> <span
+					th:href="@{/usuarios/cadastrar}"> <i class="oi oi-plus"></i> <span
 						th:text="#{sidebar.link.cadastrar}"></span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{/candidaturas/listar}"> <i class="oi oi-spreadsheet"></i>
+					th:href="@{/usuarios/listar}"> <i class="oi oi-spreadsheet"></i>
 						<span th:text="#{sidebar.link.listar}"></span>
 				</a></li>
 			</ul>
@@ -38,6 +39,22 @@
 				</a></li>
 				<li class="nav-item"><a class="nav-link"
 					th:href="@{/empresas/listar}"> <i class="oi oi-spreadsheet"></i>
+						<span th:text="#{sidebar.link.listar}"></span>
+				</a></li>
+			</ul>
+		</div>
+
+		
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<ul class="nav nav-pills">
+				<li class="nav-item"><span class="nav-link active"
+					th:text="#{sidebar.nome.profissional}"></span></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/profissionais/cadastrar}"> <i class="oi oi-plus"></i> <span
+						th:text="#{sidebar.link.cadastrar}"></span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{/profissionais/listar}"> <i class="oi oi-spreadsheet"></i>
 						<span th:text="#{sidebar.link.listar}"></span>
 				</a></li>
 			</ul>
@@ -68,21 +85,22 @@
 				</li>
 			</ul>
 		</div>
-
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<div sec:authorize="hasRole('ROLE_USER')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
-					th:text="#{sidebar.nome.usuario}"></span></li>
+					th:text="#{sidebar.nome.candidatura}"></span></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{/usuarios/cadastrar}"> <i class="oi oi-plus"></i> <span
+					th:href="@{/candidaturas/cadastrar}"> <i class="oi oi-plus"></i> <span
 						th:text="#{sidebar.link.cadastrar}"></span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{/usuarios/listar}"> <i class="oi oi-spreadsheet"></i>
+					th:href="@{/candidaturas/listar}"> <i class="oi oi-spreadsheet"></i>
 						<span th:text="#{sidebar.link.listar}"></span>
 				</a></li>
 			</ul>
 		</div>
+
+
 	</nav>
 </body>
 </html>

@@ -2,6 +2,8 @@ package br.ufscar.dc.dsw.controller;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,24 +14,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Profissional;
+import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.service.impl.UsuarioService;
 import br.ufscar.dc.dsw.service.spec.IProfissionalService;
 
 @Controller
 @RequestMapping("/profissionais")
 public class ProfissionalController {
-	
+	@Autowired
+	private UsuarioService usuarioService;
+
 	@Autowired
 	private IProfissionalService service;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(Profissional profissional) {
+	public String cadastrar(Profissional profissional, ModelMap model) {
+		
+
+		List<Usuario> usuarios = usuarioService.getUsuariosSemProfissional();
+		model.addAttribute("usuarios", usuarios);
+        model.addAttribute("empresa", new Empresa());
 		return "profissional/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		model.addAttribute("profissionals",service.buscarTodos());
+		model.addAttribute("profissionais",service.buscarTodos());
 		return "profissional/lista";
 	}
 	
@@ -42,7 +54,7 @@ public class ProfissionalController {
 		
 		service.salvar(profissional);
 		attr.addFlashAttribute("sucess", "profissional.create.sucess");
-		return "redirect:/profissionals/listar";
+		return "redirect:/profissionais/listar";
 	}
 	
 	@GetMapping("/editar/{id}")

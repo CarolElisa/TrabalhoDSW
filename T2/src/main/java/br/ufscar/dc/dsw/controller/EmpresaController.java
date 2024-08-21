@@ -13,17 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.ufscar.dc.dsw.domain.Empresa;
+import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.service.impl.UsuarioService;
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
-
+import java.util.List;
 @Controller
 @RequestMapping("/empresas")
 public class EmpresaController {
-	
+
+	@Autowired
+	UsuarioService usuarioService;
+
 	@Autowired
 	private IEmpresaService service;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(Empresa empresa) {
+	public String cadastrar(Empresa empresa, ModelMap model) {
+		
+
+		List<Usuario> usuarios = usuarioService.getUsuariosSemEmpresa();
+		model.addAttribute("usuarios", usuarios);
+        model.addAttribute("empresa", new Empresa());
 		return "empresa/cadastro";
 	}
 	
