@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufscar.dc.dsw.dao.IVagaDAO;
 import br.ufscar.dc.dsw.domain.Vaga;
+import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.service.spec.IVagaService;
 
 @Service
@@ -34,4 +35,15 @@ public class VagaService implements IVagaService {
 	public List<Vaga> buscarTodos() {
 		return dao.findAll();
 	}
+
+	@Transactional(readOnly = true)
+	public List<Vaga> buscarPorEmpresa(Empresa e)
+	{
+		return dao.findByEmpresa(e);
+	}
+
+	@Transactional
+    public List<Vaga> buscarVagasPorEmpresa(Empresa empresa) {
+        return dao.findByEmpresa(empresa);
+    }
 }

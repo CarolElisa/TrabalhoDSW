@@ -34,4 +34,10 @@ public class UsuarioService implements IUsuarioService {
 	public List<Usuario> buscarTodos() {
 		return dao.findAll();
 	}
+
+	@Override
+    public Usuario buscarPorUsername(String username) {
+        return dao.findByUsername(username);
+    }
+
 }

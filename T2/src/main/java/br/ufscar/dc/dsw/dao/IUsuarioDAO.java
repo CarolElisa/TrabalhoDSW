@@ -12,6 +12,8 @@ import br.ufscar.dc.dsw.domain.Usuario;
 public interface IUsuarioDAO extends CrudRepository<Usuario, Long> {
 	
 	Usuario findById(long id);
+    
+    Usuario findByUsername(String username);
 
 	List<Usuario> findAll();
 	

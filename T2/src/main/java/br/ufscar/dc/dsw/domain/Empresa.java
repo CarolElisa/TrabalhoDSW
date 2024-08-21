@@ -1,37 +1,39 @@
 package br.ufscar.dc.dsw.domain;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
-import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("serial")
 @Entity
-@Table(name = "Empresa")
-@PrimaryKeyJoinColumn(name = "id")
-public class Empresa extends Usuario {
+@Table(name = "empresa")
+public class Empresa extends AbstractEntity<Long> {
 
-    @NotBlank
-    @Column(nullable = false, length = 18, unique = true)
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @Column(nullable = false, length = 20)
     private String cnpj;
-    
-    @NotBlank
+
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vaga> vagas = new ArrayList<>();
+    @OneToMany(mappedBy = "empresa")
+    private List<Vaga> vagas;
 
     // Getters and Setters
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public String getCnpj() {
         return cnpj;
     }
@@ -55,6 +57,4 @@ public class Empresa extends Usuario {
     public void setVagas(List<Vaga> vagas) {
         this.vagas = vagas;
     }
-
-
 }

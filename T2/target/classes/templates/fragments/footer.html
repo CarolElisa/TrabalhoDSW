@@ -12,7 +12,8 @@
 				<div sec:authorize="isAuthenticated()">
 					<span th:text="#{login.username}"></span>: <span
 						sec:authentication="name"></span> | <span th:text="#{user.role}"></span>:
-					<span sec:authentication="principal.authorities"></span> <br />
+					<span sec:authentication="principal.authorities"></span> | <span th:text="#{login.username}"></span>:
+					<span sec:authentication="principal.username"></span> <br /> <br />
 				<span>&copy; Departamento de Computação &copy;</span>
 				</div>
 			</div>

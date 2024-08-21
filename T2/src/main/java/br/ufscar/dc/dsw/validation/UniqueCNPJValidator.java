@@ -21,8 +21,7 @@ public class UniqueCNPJValidator implements ConstraintValidator<UniqueCNPJ, Stri
 			Empresa empresa = dao.findByCnpj(Cnpj);
 			return empresa == null;
 		} else {
-			// Durante a execução da classe LivrariaMvcApplication
-			// não há injeção de dependência
+
 			return true;
 		}
 

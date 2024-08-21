@@ -2,66 +2,51 @@ package br.ufscar.dc.dsw.domain;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "Candidatura")
-public class Candidatura extends AbstractEntity<Long> {
+@Table(name = "candidatura")
+public class Candidatura {
 
-	@NotNull
-	@Column(nullable = false, length = 19)
-	private String data;
-    
-	@NotNull
-	@Column(columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
-	private BigDecimal valor;
-    
-	@NotNull(message = "{NotNull.candidatura.vaga}")
-	@ManyToOne
-	@JoinColumn(name = "vaga_id")
-	private Vaga vaga;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "profissional_id")
+    private Profissional profissional;
 
-	public String getData() {
-		return data;
-	}
+    @ManyToOne
+    @JoinColumn(name = "vaga_id")
+    private Vaga vaga;
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    // Additional fields (e.g., application date, status) can be added here
 
-	public BigDecimal getValor() {
-		return valor;
-	}
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Vaga getVaga() {
-		return vaga;
-	}
 
-	public void setVaga(Vaga vaga) {
-		this.vaga = vaga;
-		setValor(vaga.getSalario());
-	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    public Profissional getProfissional() {
+        return profissional;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
+    }
+
+    public Vaga getVaga() {
+        return vaga;
+    }
+
+    public void setVaga(Vaga vaga) {
+        this.vaga = vaga;
+    }
 }

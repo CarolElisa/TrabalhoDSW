@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.ufscar.dc.dsw.dao.ICandidaturaDAO;
 import br.ufscar.dc.dsw.domain.Candidatura;
 import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.service.spec.ICandidaturaService;
 
 @Service
@@ -22,13 +23,20 @@ public class CandidaturaService implements ICandidaturaService {
 		dao.save(candidatura);
 	}
 
+	public void excluir(long id) {
+		dao.deleteById(id);
+	}
+
 	@Transactional(readOnly = true)
 	public Candidatura buscarPorId(Long id) {
 		return dao.findById(id.longValue());
 	}
 
 	@Transactional(readOnly = true)
-	public List<Candidatura> buscarTodosPorUsuario(Usuario u) {
-		return dao.findAllByUsuario(u);
+	public List<Candidatura> buscarPorProfissional(Profissional p) {
+		return null;
 	}
+
+
+
 }

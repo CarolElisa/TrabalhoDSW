@@ -8,6 +8,8 @@ public interface IUsuarioService {
 
 	Usuario buscarPorId(Long id);
 
+	Usuario buscarPorUsername(String username);
+
 	List<Usuario> buscarTodos();
 
 	void salvar(Usuario empresa);

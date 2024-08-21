@@ -1,81 +1,90 @@
 package br.ufscar.dc.dsw.domain;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
-@SuppressWarnings("serial")
 @Entity
-@Table(name = "Vaga")
-public class Vaga extends AbstractEntity<Long> {
+@Table(name = "vaga")
+public class Vaga {
 
-	@NotBlank(message = "{NotBlank.vaga.nome}")
-	@Size(max = 60)
-	@Column(nullable = false, length = 60)
-	private String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank(message = "{NotBlank.vaga.nivel}")
-	@Size(max = 60)
-	@Column(nullable = false, length = 60)
-	private String nivel;
-    
-	@NotNull(message = "{NotNull.vaga.anosContrato}")
-	@Column(nullable = false, length = 5)
-	private Integer anosContrato;
-	
-	@NotNull(message = "{NotNull.vaga.salario}")
-	@Column(nullable = false, columnDefinition = "DECIMAL(8,2) DEFAULT 0.0")
-	private BigDecimal salario;
-    
-	@NotNull(message = "{NotNull.vaga.empresa}")
-	@ManyToOne
-	@JoinColumn(name = "empresa_id")
-	private Empresa empresa;
+    @Column(name = "nome")
+    private String nome;
 
-	public String getNome() {
-		return nome;
-	}
+    @Column(name = "nivel")
+    private String nivel;
 
-	public void setNivel(String nome) {
-		this.nome = nome;
-	}
+    @Column(name = "anos_contrato")
+    private int anosContrato;
 
-	public String getNivel() {
-		return nivel;
-	}
+    @Column(name = "salario")
+    private BigDecimal salario;
 
-	public void setNome(String nivel) {
-		this.nivel = nivel;
-	}
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
-	public Integer getAnosContrato() {
-		return anosContrato;
-	}
+    @ManyToMany(mappedBy = "candidaturas")
+    private Set<Profissional> profissionais;
 
-	public void setAnosContrato(Integer anosContrato) {
-		this.anosContrato = anosContrato;
-	}
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-	public BigDecimal getSalario() {
-		return salario;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setSalario(BigDecimal salario) {
-		this.salario = salario;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+
+    public int getAnosContrato() {
+        return anosContrato;
+    }
+
+    public void setAnosContrato(int anosContrato) {
+        this.anosContrato = anosContrato;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public void setSalario(BigDecimal salario) {
+        this.salario = salario;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public Set<Profissional> getProfissionais() {
+        return profissionais;
+    }
+
+    public void setProfissionais(Set<Profissional> profissionais) {
+        this.profissionais = profissionais;
+    }
 }
