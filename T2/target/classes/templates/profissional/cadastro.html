@@ -36,8 +36,8 @@
 						th:classappend="${#fields.hasErrors('usuario')} ? is-invalid"
 						th:if="${!editando}">
 						<option value="">Selecione</option>
-						<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
-							th:text="${usuario.username}"></option>
+						<option th:each="usr : ${usuarios}" th:value="${usr.id}"
+							th:text="${usr.username}"></option>
 					</select>
 				
 					<!-- Dropdown for when editando is true -->
@@ -45,7 +45,7 @@
 						th:classappend="${#fields.hasErrors('usuario')} ? is-invalid"
 						th:if="${editando}">
 						<!-- Disable the default value to indicate it is read-only -->
-						<option th:value="${profissional.usuario.id}" th:text="${profissional.usuario.username}" selected="selected" disabled="disabled"></option>
+						<option th:value="${profissional.usuario}" th:text="${profissional.usuario.username}" selected="selected" disabled="disabled"></option>
 						<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
 							th:text="${usuario.username}"></option>
 					</select>

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.service.impl.ProfissionalService;
 import br.ufscar.dc.dsw.service.impl.UsuarioService;
 import br.ufscar.dc.dsw.service.spec.IProfissionalService;
 
@@ -25,6 +26,8 @@ import br.ufscar.dc.dsw.service.spec.IProfissionalService;
 public class ProfissionalController {
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private ProfissionalService profissionalService;
 
 	@Autowired
 	private IProfissionalService service;
@@ -60,18 +63,19 @@ public class ProfissionalController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		Profissional profissional = service.buscarPorId(id);
+		model.addAttribute("usuarios", profissionalService.buscarUsuarioProfissionalListado(id));
 		model.addAttribute("profissional", profissional);
-		model.addAttribute("usuarios", usuarioService.getUsuariosSemProfissional());
-		model.addAttribute("editando", true);
+		model.addAttribute("editando", false);
 		return "profissional/cadastro";
 	}
 	
 	@PostMapping("/editar")
 	public String editar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr) {
-		System.out.println("CPF received: " + profissional.getCpf() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
 		service.salvar(profissional);
 		attr.addFlashAttribute("sucess", "profissional.edit.sucess");
-		return "redirect:/profissionais/salvar";
+	
+		return "redirect:/profissionais/listar";
 	}
 	
 	@GetMapping("/excluir/{id}")

@@ -56,6 +56,7 @@ public class ProfissionalService implements IProfissionalService {
 	@Transactional(readOnly = true)
 	public List<Usuario> buscarUsuarioProfissionalListado(Long id)
 	{
+		System.out.println(id + " BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 		return dao.findUsuarioProfissionalListado(id);
 	}
 
