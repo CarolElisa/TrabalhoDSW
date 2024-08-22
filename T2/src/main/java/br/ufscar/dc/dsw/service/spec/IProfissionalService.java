@@ -24,5 +24,8 @@ public interface IProfissionalService {
 	boolean profissionalTemCandidaturas(Long id);
 
 	List<Candidatura> buscarCandidaturaPorProfissional(Profissional profissional);
+
+	List<Usuario> buscarUsuarioProfissionalListado(Long id);
+	List<Profissional> buscarProfissionalListado(Long id);
 	
 }

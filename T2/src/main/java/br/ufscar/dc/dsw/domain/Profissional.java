@@ -1,7 +1,12 @@
 package br.ufscar.dc.dsw.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Set;
+
+
 import java.util.List;
 
 @Entity
@@ -13,6 +18,7 @@ public class Profissional {
     private Long id;
 
     @OneToOne
+    @NotNull(message = "Usuario is mandatory")
     @JoinColumn(name = "usuario_id", unique = true)
     private Usuario usuario;
 

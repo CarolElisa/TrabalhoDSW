@@ -6,13 +6,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.List;
+
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 
 @Entity
 @Table(name = "empresa")
 public class Empresa extends AbstractEntity<Long> {
 
     @OneToOne
+    @jakarta.validation.constraints.NotNull
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 

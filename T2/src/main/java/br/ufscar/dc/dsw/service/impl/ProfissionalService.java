@@ -48,12 +48,16 @@ public class ProfissionalService implements IProfissionalService {
         return dao.findByCpf(cpf);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Profissional buscarPorUsuario(Usuario usuario) {
         return dao.findByUsuario(usuario);
     }
 
-
+	@Transactional(readOnly = true)
+	public List<Usuario> buscarUsuarioProfissionalListado(Long id)
+	{
+		return dao.findUsuarioProfissionalListado(id);
+	}
 
 	@Transactional
 	
@@ -61,5 +65,9 @@ public class ProfissionalService implements IProfissionalService {
 		return null;//dao.findAllCandidaturaByProfissional(profissional.getId());
 	}
 
+	@Transactional
+	public List<Profissional> buscarProfissionalListado(Long id){
+		return dao.findProfissionalListado(id);
+	}
 
 }

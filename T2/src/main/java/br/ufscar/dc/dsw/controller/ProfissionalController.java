@@ -31,13 +31,13 @@ public class ProfissionalController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Profissional profissional, ModelMap model) {
-		
-
-		List<Usuario> usuarios = usuarioService.getUsuariosSemProfissional();
-		model.addAttribute("usuarios", usuarios);
-        model.addAttribute("empresa", new Empresa());
+		model.addAttribute("usuarios", usuarioService.getUsuariosSemProfissional());
+		model.addAttribute("profissional", new Profissional());
+		model.addAttribute("editando", false);
 		return "profissional/cadastro";
 	}
+
+
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
@@ -59,22 +59,19 @@ public class ProfissionalController {
 	
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("profissional", service.buscarPorId(id));
+		Profissional profissional = service.buscarPorId(id);
+		model.addAttribute("profissional", profissional);
+		model.addAttribute("usuarios", usuarioService.getUsuariosSemProfissional());
+		model.addAttribute("editando", true);
 		return "profissional/cadastro";
 	}
 	
 	@PostMapping("/editar")
 	public String editar(@Valid Profissional profissional, BindingResult result, RedirectAttributes attr) {
-		
-		// Apenas rejeita se o problema não for com o Cnpj (Cnpj campo read-only) 
-		
-		if (result.getFieldErrorCount() > 1 || result.getFieldError("Cnpj") == null) {
-			return "profissional/cadastro";
-		}
-
+		System.out.println("CPF received: " + profissional.getCpf() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		service.salvar(profissional);
 		attr.addFlashAttribute("sucess", "profissional.edit.sucess");
-		return "redirect:/profissionals/listar";
+		return "redirect:/profissionais/salvar";
 	}
 	
 	@GetMapping("/excluir/{id}")
