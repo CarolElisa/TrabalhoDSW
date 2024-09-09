@@ -78,7 +78,7 @@
 
 					<div class="form-group col-md-6">
 						<label th:text="#{vaga.salario.label}" for="salario"></label> 
-						<input type="text" class="form-control" id="salario" placeholder="Preço"
+						<input type="text" class="form-control" id="salario" placeholder="Salário"
 							data-mask="000000,00" data-mask-reverse="true" th:field="*{salario}" 
 							th:classappend="${#fields.hasErrors('salario')} ? is-invalid" />
 						
