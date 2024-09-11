@@ -37,6 +37,13 @@ public class VagaController {
     @Autowired
     private IEmpresaService empresaService;
 
+    @GetMapping("/listartodos")
+    public String listartodos(ModelMap model) {
+        
+        model.addAttribute("vagas", vagaService.buscarTodos());
+        return "vaga/listatodos";
+    }
+    
     @GetMapping("/listar")
     public String listar(ModelMap model, Principal principal) {
         String username = principal.getName();

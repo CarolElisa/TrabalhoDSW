@@ -43,7 +43,8 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests((authz) -> authz
-						.requestMatchers("/error", "/login/**", "/js/**").permitAll()
+						.requestMatchers("/", "/home").permitAll()
+						.requestMatchers("/vagas/listartodos").permitAll()
 						.requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
 						.requestMatchers("/candidaturas/**").hasRole("FUNC")
 						.requestMatchers("/empresas/**", "/usuarios/**").hasRole("ADMIN")
@@ -51,6 +52,7 @@ public class WebSecurityConfig {
 						.anyRequest().authenticated())
 				.formLogin((form) -> form
 						.loginPage("/login")
+						.defaultSuccessUrl("/home2", true)
 						.permitAll())
 				.logout((logout) -> logout
 						.logoutSuccessUrl("/").permitAll());

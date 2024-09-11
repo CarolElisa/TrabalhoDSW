@@ -71,7 +71,7 @@ public class VagasTopApplication {
 
             // Create and save Vaga entities
             Vaga vaga1 = new Vaga();
-            vaga1.setNome("Vaga Nome");
+            vaga1.setNome("Vaga de Estágio");
             vaga1.setNivel("Junior");
             vaga1.setDescricao("Procura-se estagiário para estagiar 26 horas");
             vaga1.setAnosContrato(1);
@@ -83,7 +83,7 @@ public class VagasTopApplication {
             vagaDAO.save(vaga1);
 
             Vaga vaga2 = new Vaga();
-            vaga2.setNome("Vaga Nome 2");
+            vaga2.setNome("Vaga para Dev Web");
             vaga2.setNivel("Senior");
             vaga2.setDescricao("Precisa-se de um funcionário que saiba trabalhar com MySQL e HTML");
             vaga2.setAnosContrato(2);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout3}">
 <head>
 </head>
 <body>
@@ -7,7 +7,16 @@
 
 		<div class="container" style="text-align: center;">
 			<h1 th:text="#{title.label}">Vagas Top</h1>
-			<img alt="" th:src="@{/image/image.png}" style="width:500px;">
+			<img alt="" th:src="@{/image/image.png}" style="width:300px;">
+		</div>
+
+		<div class="container" style="text-align: center;"></divclass>
+			
+			<a class="btn btn-primary" type="button"
+				href="/vagas/listartodos"><span th:text="#{link.vagas.label}"></span></a>
+
+			<a class="btn btn-primary" type="button"
+				href="/login"><span th:text="#{link.login.label}"></span></a>
 		</div>
 
 	</section>

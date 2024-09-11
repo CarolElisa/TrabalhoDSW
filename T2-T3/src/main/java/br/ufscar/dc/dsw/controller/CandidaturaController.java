@@ -5,10 +5,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.system.SystemProperties;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,12 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.domain.Candidatura;
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Usuario;
-import br.ufscar.dc.dsw.domain.Vaga;
 import br.ufscar.dc.dsw.domain.Profissional;
-import br.ufscar.dc.dsw.service.impl.EmpresaService;
 import br.ufscar.dc.dsw.service.impl.UsuarioService;
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
-import br.ufscar.dc.dsw.service.spec.IVagaService;
 import br.ufscar.dc.dsw.service.spec.ICandidaturaService;
 import br.ufscar.dc.dsw.service.spec.IProfissionalService;
 
@@ -38,9 +32,6 @@ public class CandidaturaController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-
-	@Autowired
-	private IVagaService vagaService;
 
 	@Autowired
 	private IEmpresaService empresaService;
