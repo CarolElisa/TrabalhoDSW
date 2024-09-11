@@ -1,8 +1,17 @@
 package br.ufscar.dc.dsw.domain;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "vaga")
@@ -18,11 +27,23 @@ public class Vaga {
     @Column(name = "nivel")
     private String nivel;
 
+    @Column(name = "descricao")
+    private String descricao;
+
     @Column(name = "anos_contrato")
     private int anosContrato;
 
     @Column(name = "salario")
     private BigDecimal salario;
+
+    @Column(name = "dataLim")
+    private String dataLim;
+
+    @Column(name = "cidade")
+    private String cidade;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -56,6 +77,14 @@ public class Vaga {
         this.nivel = nivel;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public int getAnosContrato() {
         return anosContrato;
     }
@@ -70,6 +99,30 @@ public class Vaga {
 
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
+    }
+
+    public String getDataLim() {
+        return dataLim;
+    }
+
+    public void setDataLim(String dataLim) {
+        this.dataLim = dataLim;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Empresa getEmpresa() {

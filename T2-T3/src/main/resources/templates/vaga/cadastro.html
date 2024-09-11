@@ -52,6 +52,17 @@
 					</div>
 
 					<div class="form-group col-md-6">
+						<label th:text="#{vaga.descricao.label}" for="nome"></label> 
+						<input type="text" class="form-control" id="nome" placeholder="Descricao"
+							autofocus="autofocus" th:field="*{descricao}"
+							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
+						
+						<div class="invalid-feedback">
+							<span th:errors="*{descricao}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
 						<label th:text="#{vaga.anosContrato.label}" for="anosContrato"></label> 
 						<input type="number" class="form-control" id="nome" placeholder="Anos de Contrato"
 							autofocus="autofocus" th:field="*{anosContrato}"
@@ -71,6 +82,43 @@
 						<div class="invalid-feedback">
 							<span th:errors="*{salario}"></span>
 						</div>
+					</div>
+				</div>
+
+				<div class="form-group col-md-6">
+					<label th:text="#{vaga.dataLim.label}" for="nome"></label> 
+					<input type="text" class="form-control" id="nome" placeholder="__/__/____"
+						autofocus="autofocus" th:field="*{dataLim}"
+						data-mask="00/00/0000" data-mask-reverse="true"
+						th:classappend="${#fields.hasErrors('dataLim')} ? is-invalid" />
+					
+					<div class="invalid-feedback">
+						<span th:errors="*{dataLim}"></span>
+					</div>
+				</div>
+
+				<div class="form-group col-md-6">
+					<label th:text="#{vaga.cidade.label}" for="nome"></label> 
+					<input type="text" class="form-control" id="nome" placeholder="Cidade"
+						autofocus="autofocus" th:field="*{cidade}"
+						th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
+					
+					<div class="invalid-feedback">
+						<span th:errors="*{cidade}"></span>
+					</div>
+				</div>
+
+				<div class="form-group col-md-6">
+					<label th:text="#{vaga.status.label}" for="nome"></label> 
+					<select id="status" class="form-control" th:field="*{status}"
+						th:classappend="${#fields.hasErrors('status')} ? is-invalid">
+						<option value="">Selecione</option>
+						<option value="Aberta">Aberta</option>
+						<option value="Fechada">Fechada</option>
+					</select>
+
+					<div class="invalid-feedback">
+						<span th:errors="*{status}"></span>
 					</div>
 				</div>
 

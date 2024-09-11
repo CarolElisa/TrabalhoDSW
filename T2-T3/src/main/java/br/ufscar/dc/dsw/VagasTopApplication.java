@@ -73,16 +73,24 @@ public class VagasTopApplication {
             Vaga vaga1 = new Vaga();
             vaga1.setNome("Vaga Nome");
             vaga1.setNivel("Junior");
+            vaga1.setDescricao("Procura-se estagiário para estagiar 26 horas");
             vaga1.setAnosContrato(1);
             vaga1.setSalario(new BigDecimal("3000.00"));
+            vaga1.setDataLim("26/11/2024");
+            vaga1.setCidade("São Paulo");
+            vaga1.setStatus("Aberta");
             vaga1.setEmpresa(savedEmpresa1); // Link to Empresa
             vagaDAO.save(vaga1);
 
             Vaga vaga2 = new Vaga();
             vaga2.setNome("Vaga Nome 2");
             vaga2.setNivel("Senior");
+            vaga2.setDescricao("Precisa-se de um funcionário que saiba trabalhar com MySQL e HTML");
             vaga2.setAnosContrato(2);
             vaga2.setSalario(new BigDecimal("5000.00"));
+            vaga2.setDataLim("10/10/2024");
+            vaga2.setCidade("São Carlos");
+            vaga2.setStatus("Aberta");
             vaga2.setEmpresa(savedEmpresa2); // Link to Empresa
             vagaDAO.save(vaga2);
 

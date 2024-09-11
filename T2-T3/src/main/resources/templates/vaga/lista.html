@@ -31,9 +31,13 @@
 							<th>#</th>
 							<th th:text="#{vaga.nome.label}"></th>
 							<th th:text="#{vaga.nivel.label}"></th>
+							<th th:text="#{vaga.descricao.label}"></th>
 							<th th:text="#{vaga.empresa.label}"></th>
 							<th th:text="#{vaga.anosContrato.label}"></th>
 							<th th:text="#{vaga.salario.label}"></th>
+							<th th:text="#{vaga.dataLim.label}"></th>
+							<th th:text="#{vaga.cidade.label}"></th>
+							<th th:text="#{vaga.status.label}"></th>
 							<th th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
@@ -42,9 +46,13 @@
 							<td th:text="${vaga.id}"></td>
 							<td th:text="${vaga.nome}"></td>
 							<td th:text="${vaga.nivel}"></td>
+							<td th:text="${vaga.descricao}"></td>
 							<td th:text="${vaga.empresa.nome}"></td>
 							<td th:text="${vaga.anosContrato}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(vaga.salario,2,2,'COMMA')}|"></td>
+							<td th:text="${vaga.dataLim}"></td>
+							<td th:text="${vaga.cidade}"></td>
+							<td th:text="${vaga.status}"></td>
 							<td colspan="2">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/vagas/editar/{id} (id=${vaga.id}) }" role="button"> 
