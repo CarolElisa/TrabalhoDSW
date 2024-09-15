@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Profissional {
     private Long id;
 
     @OneToOne
+    @JsonIgnore
     @NotNull(message = "Usuario is mandatory")
     @JoinColumn(name = "usuario_id", unique = true)
     private Usuario usuario;
@@ -29,6 +31,7 @@ public class Profissional {
     private String nome;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
         name = "candidatura",
         joinColumns = @JoinColumn(name = "profissional_id"),
