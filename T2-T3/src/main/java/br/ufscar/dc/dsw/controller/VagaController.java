@@ -21,6 +21,7 @@ import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Vaga;
 import br.ufscar.dc.dsw.service.impl.UsuarioService;
+import br.ufscar.dc.dsw.service.spec.ICandidaturaService;
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 import br.ufscar.dc.dsw.service.spec.IVagaService;
 
@@ -36,6 +37,17 @@ public class VagaController {
 
     @Autowired
     private IEmpresaService empresaService;
+
+    @Autowired
+    private ICandidaturaService candidaturaService;
+
+    @GetMapping("/listacandidaturas/{id}")
+    public String listarCandidaturas(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("candidaturas", candidaturaService.buscarPorVaga(id));
+        return "vaga/listacandid";
+    }
+
+
 
     @GetMapping("/listartodos")
     public String listartodos(ModelMap model) {

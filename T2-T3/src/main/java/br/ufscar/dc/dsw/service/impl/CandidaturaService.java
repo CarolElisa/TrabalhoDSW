@@ -38,6 +38,12 @@ public class CandidaturaService implements ICandidaturaService {
 		
 	}
 
+	@Transactional(readOnly = true)
+	public List<Candidatura> buscarPorVaga(Long id) {
+		return dao.findAllByVaga(id);
+		
+	}
+
 
 
 

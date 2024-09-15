@@ -6,14 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 
 import br.ufscar.dc.dsw.domain.Candidatura;
 import br.ufscar.dc.dsw.domain.Usuario;
+import br.ufscar.dc.dsw.domain.Vaga;
 import br.ufscar.dc.dsw.domain.Profissional;
 
 public interface ICandidaturaService {
 
 	Candidatura buscarPorId(Long id);
 	List<Candidatura> buscarPorProfissional(Profissional p);
-	
-	void salvar(Candidatura empresa);
+	List<Candidatura> buscarPorVaga(Long idVaga);
 
+	void salvar(Candidatura empresa);
+	
 	void excluir(long id);
 }

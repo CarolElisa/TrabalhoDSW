@@ -127,6 +127,7 @@ public class VagasTopApplication {
             candidatura1.setProfissional(profissional1);
             candidatura1.setVaga(vaga1);
             candidatura1.setData("01/01/2024");
+            candidatura1.setStatus("ABERTO");
             candidaturaDAO.save(candidatura1);
 
 

@@ -117,7 +117,10 @@ public class CandidaturaController {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDate = sdf.format(dia.getTime());
 		candidatura.setData(formattedDate);
-		
+		if(candidatura.getStatus() == null)
+		{
+			candidatura.setStatus("ABERTO");
+		}
 		candidaturaService.salvar(candidatura);
 		attr.addFlashAttribute("sucess", "candidatura.create.sucess");
 
@@ -147,6 +150,24 @@ public class CandidaturaController {
 		candidaturaService.excluir(id);
 		attr.addFlashAttribute("sucess", "candidatura.delete.sucess");
 		return "redirect:/candidaturas/listar";
+	}
+
+	@GetMapping("/aprova/{id}")
+	public String aprova(@PathVariable("id") Long id, RedirectAttributes attr) {
+		Candidatura candidatura = candidaturaService.buscarPorId(id);
+		candidatura.setStatus("ENTREVISTA");
+		candidaturaService.salvar(candidatura);
+		attr.addFlashAttribute("sucess", "candidatura.aprova.sucess");
+		return "redirect:/vagas/listacandidaturas/{id}";
+	}
+
+	@GetMapping("/recusa/{id}")
+	public String recusa(@PathVariable("id") Long id, RedirectAttributes attr) {
+		Candidatura candidatura = candidaturaService.buscarPorId(id);
+		candidatura.setStatus("NÃO SELECIONADO");
+		candidaturaService.salvar(candidatura);
+		attr.addFlashAttribute("sucess", "candidatura.recusa.sucess");
+		return "redirect:/vagas/listacandidaturas/{id}";
 	}
 
 	@ModelAttribute("empresas")

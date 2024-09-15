@@ -24,6 +24,13 @@ public class Candidatura {
     @Column(nullable = false, length = 10)
     private String data;
 
+    @Column(nullable = false, length = 15)
+    private String status;
+
+    public Candidatura()
+    {
+        this.status = "ABERTO";
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -60,5 +67,12 @@ public class Candidatura {
     public String getData()
     {
         return this.data;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -36,6 +36,7 @@
 							<th class="bg-warning" th:text="#{vaga.empresa.label}"></th>
 							<th class="bg-warning" th:text="#{vaga.anosContrato.label}"></th>
 							<th class="bg-warning" th:text="#{candidatura.vaga.salario.label}"></th>
+							<th class="bg-warning" th:text="#{candidatura.vaga.status.label}"></th>
 							<th class="bg-warning" th:text="#{candidatura.vaga.acao.label}"></th>
 						</tr>
 					</thead>
@@ -48,6 +49,7 @@
 							<td th:text="${candidatura.vaga.empresa.nome}"></td>
 							<td th:text="${candidatura.vaga.anosContrato}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(candidatura.vaga.salario,2,2,'COMMA')}|"></td>
+							<td th:text="${candidatura.status}"></td>
 							<td colspan="2">
 								<a class="btn btn-info btn-sm" th:href="@{/candidaturas/excluir/{id} (id=${candidatura.id}) }"
 									role="button"> 

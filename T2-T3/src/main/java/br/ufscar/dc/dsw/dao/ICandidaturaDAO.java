@@ -12,9 +12,10 @@ import br.ufscar.dc.dsw.domain.Usuario;
 public interface ICandidaturaDAO extends CrudRepository<Candidatura, Long>{
 
 	Candidatura findById(long id);
-
-	List<Candidatura> findAllByProfissional(Profissional p);
 	
+	List<Candidatura> findAllByProfissional(Profissional p);
+	@Query("select c from Candidatura c where c.vaga.id = :id")
+	List<Candidatura> findAllByVaga(Long id);
 	void deleteById(long id);
 
 	Candidatura save(Candidatura candidatura);
