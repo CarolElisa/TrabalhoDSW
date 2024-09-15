@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout3}">
+<html layout:decorate="~{layout}">
 <head>
 </head>
 <body>
@@ -14,12 +14,14 @@
 					</li>
 				</ul>
 			</div>
+			<a class="btn btn-primary btn-md" th:href="@{/vagas/cadastrar}" role="button"> 
+				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
+				<span th:text="#{vaga.cadastrar.label}"></span>
+			</a>
 		</nav>
-
 		<div class="container" id="listagem">
 
 			<div th:replace="~{fragments/alert}"></div>
-
 			<div class="table-responsive">
 				<table class="table table-striped table-hover table-sm">
 					<thead>
@@ -38,13 +40,13 @@
 							<td th:text="${candidatura.profissional.nome}"></td>
 							<td th:text="${candidatura.status}"></td>
 							<td colspan="2">
-								<a class="btn btn-primary btn-md"
+								<a class="btn btn-primary btn-sm"
 									th:href="@{/candidaturas/aprova/{id} (id=${candidatura.id}) }" role="button"> 
-									<span class="oi oi-caret-right" th:title="#{link.editar.label}" aria-hidden="true"></span>
+									<span class="oi" th:title="#{link.editar.label}" aria-hidden="true">✔</span>
 								</a>
-								<a class="btn btn-primary btn-md"
+								<a class="btn btn-danger btn-sm"
 								th:href="@{/candidaturas/recusa/{id} (id=${candidatura.id}) }" role="button"> 
-								<span class="oi oi-caret-right" th:title="#{link.editar.label}" aria-hidden="true"></span>
+								<span class="oi" th:title="#{link.editar.label}" aria-hidden="true">X</span>
 							</a>
 							</td>
 						</tr>
