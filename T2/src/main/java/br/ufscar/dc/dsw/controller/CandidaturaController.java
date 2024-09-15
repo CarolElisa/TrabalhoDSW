@@ -52,13 +52,30 @@ public class CandidaturaController {
 	private ICandidaturaService candidaturaService;
 
 	@GetMapping("/cadastrar")
-	public String cadastrar(Candidatura candidatura) {
+	public String cadastrar(ModelMap model, Candidatura candidatura, Principal principal) {
+		String username = principal.getName();
+		Usuario usuario = usuarioService.buscarPorUsername(username);
+		if(usuario == null)
+		{
+			throw new UsernameNotFoundException("USER NOT FOUND!");
+		}
+		Profissional profissional = profissionalService.buscarPorUsuario(usuario);
+
+		String data = "01/01/2020";
+		model.addAttribute("vagas", vagaService.buscarSemInscricao(usuario.getId()));
+		candidatura.setProfissional(profissional);
+		candidatura.setData(data);
+
+		
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("data", data);
+
 		return "candidatura/cadastro";
 	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model, Principal principal) {
-        String username = principal.getName();
+		String username = principal.getName();
         Usuario usuario = usuarioService.buscarPorUsername(username);
 
         if (usuario == null) {
@@ -73,6 +90,7 @@ public class CandidaturaController {
 		else
 		{
 			List<Candidatura> candidaturas = candidaturaService.buscarPorProfissional(profissional);
+
 			model.addAttribute("candidaturas", candidaturas);
 		}
 
@@ -80,14 +98,24 @@ public class CandidaturaController {
 	}
 
 	@PostMapping("/salvar")
-	public String salvar(@Valid Candidatura candidatura, BindingResult result, RedirectAttributes attr) {
+	public String salvar(@Valid Candidatura candidatura, BindingResult result, RedirectAttributes attr, Principal principal) {
+		String username = principal.getName();
+		Usuario usuario = usuarioService.buscarPorUsername(username);
+		if(usuario == null)
+		{
+			throw new UsernameNotFoundException("USER NOT FOUND!");
+		}
+		Profissional profissional = profissionalService.buscarPorUsuario(usuario);
 
 		if (result.hasErrors()) {
 			return "candidatura/cadastro";
 		}
-
+		candidatura.setProfissional(profissional);
+		candidatura.setData("hoje");
+		
 		candidaturaService.salvar(candidatura);
 		attr.addFlashAttribute("sucess", "candidatura.create.sucess");
+
 		return "redirect:/candidaturas/listar";
 	}
 

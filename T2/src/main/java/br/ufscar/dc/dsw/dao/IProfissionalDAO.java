@@ -23,7 +23,7 @@ public interface IProfissionalDAO extends CrudRepository<Profissional, Long> {
     @Query("SELECT p.usuario from Profissional p where p.id = :id")
     List<Usuario> findUsuarioProfissionalListado(@Param("id") Long id);
 
-    @Query("SELECT p.usuario from Profissional p where p.id = :id")
+    @Query("SELECT p from Profissional p where p.id = :id")
     List<Profissional> findProfissionalListado(@Param("id") Long id);
     //@Query("SELECT c FROM Candidatura c WHERE c.profissional.id = :profissionalId")
     //List<Candidatura> findAllCandidaturaByProfissional(@Param("") Long );

@@ -34,8 +34,11 @@ public class CandidaturaService implements ICandidaturaService {
 
 	@Transactional(readOnly = true)
 	public List<Candidatura> buscarPorProfissional(Profissional p) {
-		return null;
+		return dao.findAllByProfissional(p);
+		
 	}
+
+
 
 
 

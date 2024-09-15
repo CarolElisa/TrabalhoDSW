@@ -30,7 +30,7 @@ public class VagasTopApplication {
 	public CommandLineRunner demo(IUsuarioDAO usuarioDAO, BCryptPasswordEncoder encoder, IEmpresaDAO empresaDAO, IVagaDAO vagaDAO, IProfissionalDAO profissionalDAO, ICandidaturaDAO candidaturaDAO) {
 		return (args) -> {
 			
-					           // Create and save Usuario entities for Admin and Empresa
+		// criar e salvar usuarios
             Usuario adm = new Usuario();
             adm.setUsername("admin");
             adm.setPassword(encoder.encode("admin"));
@@ -52,30 +52,30 @@ public class VagasTopApplication {
             usuario2.setEnabled(true);
             usuarioDAO.save(usuario2);
 
-            // Create and save Empresa entities
+            // criar e salvar empresas
             Empresa empresa1 = new Empresa();
             empresa1.setCnpj("413.808.653-01");
             empresa1.setNome("Empresa Nome");
-            empresa1.setUsuario(usuario1); // Link to Usuario
+            empresa1.setUsuario(usuario1); // Link usuario
             empresaDAO.save(empresa1);
 
             Empresa empresa2 = new Empresa();
             empresa2.setCnpj("413.808.653-02");
             empresa2.setNome("Empresa 2");
-            empresa2.setUsuario(usuario2); // Link to Usuario
+            empresa2.setUsuario(usuario2); // Link usuario
             empresaDAO.save(empresa2);
 
             // Retrieve the saved Empresa entities
             Empresa savedEmpresa1 = empresaDAO.findByCnpj("413.808.653-01");
             Empresa savedEmpresa2 = empresaDAO.findByCnpj("413.808.653-02");
 
-            // Create and save Vaga entities
+            // criar e salvar funcionario
             Vaga vaga1 = new Vaga();
             vaga1.setNome("Vaga Nome");
             vaga1.setNivel("Junior");
             vaga1.setAnosContrato(1);
             vaga1.setSalario(new BigDecimal("3000.00"));
-            vaga1.setEmpresa(savedEmpresa1); // Link to Empresa
+            vaga1.setEmpresa(savedEmpresa1); // Link empresa
             vagaDAO.save(vaga1);
 
             Vaga vaga2 = new Vaga();
@@ -83,25 +83,25 @@ public class VagasTopApplication {
             vaga2.setNivel("Senior");
             vaga2.setAnosContrato(2);
             vaga2.setSalario(new BigDecimal("5000.00"));
-            vaga2.setEmpresa(savedEmpresa2); // Link to Empresa
+            vaga2.setEmpresa(savedEmpresa2); // Link empresa
             vagaDAO.save(vaga2);
 
-            // Create and save Usuario entities for Profissional
+            // Criar e salvar usuarios profissionais
             Usuario usuarioProfissional1 = new Usuario();
             usuarioProfissional1.setUsername("prof1");
             usuarioProfissional1.setPassword(encoder.encode("prof1"));
-            usuarioProfissional1.setRole("ROLE_USER");
+            usuarioProfissional1.setRole("ROLE_PROF");
             usuarioProfissional1.setEnabled(true);
             usuarioDAO.save(usuarioProfissional1);
 
             Usuario usuarioProfissional2 = new Usuario();
             usuarioProfissional2.setUsername("prof2");
             usuarioProfissional2.setPassword(encoder.encode("prof2"));
-            usuarioProfissional2.setRole("ROLE_USER");
+            usuarioProfissional2.setRole("ROLE_PROF");
             usuarioProfissional2.setEnabled(true);
             usuarioDAO.save(usuarioProfissional2);
 
-            // Create and save Profissional entities
+            // criar e salvar profissional
             Profissional profissional1 = new Profissional();
             profissional1.setCpf("123.456.789-01");
             profissional1.setNome("Profissional 1");
@@ -114,16 +114,20 @@ public class VagasTopApplication {
             profissional2.setUsuario(usuarioProfissional2);
             profissionalDAO.save(profissional2);
 
-            // Create and save Candidatura (Profissional applying to Vaga)
+            // Criar candidaturas
             Candidatura candidatura1 = new Candidatura();
             candidatura1.setProfissional(profissional1);
             candidatura1.setVaga(vaga1);
+            candidatura1.setData("01/01/2024");
             candidaturaDAO.save(candidatura1);
 
             Candidatura candidatura2 = new Candidatura();
             candidatura2.setProfissional(profissional2);
             candidatura2.setVaga(vaga2);
+            candidatura2.setData("02/02/2024");
             candidaturaDAO.save(candidatura2);
+
 		};
+            
 	}
 }

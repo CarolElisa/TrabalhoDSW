@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Vaga;
+import br.ufscar.dc.dsw.domain.Usuario;
 
 public interface IVagaService {
 
@@ -16,5 +17,7 @@ public interface IVagaService {
 	void excluir(Long id);
 
 	List<Vaga> buscarPorEmpresa(Empresa e);
+
+	List<Vaga> buscarSemInscricao(Long id);
 	
 }

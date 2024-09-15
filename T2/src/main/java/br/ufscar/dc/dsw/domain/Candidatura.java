@@ -21,7 +21,9 @@ public class Candidatura {
     @JoinColumn(name = "vaga_id")
     private Vaga vaga;
 
-    // Additional fields (e.g., application date, status) can be added here
+    @Column(nullable = false, length = 10)
+    private String data;
+
 
     // Getters and Setters
     public Long getId() {
@@ -48,5 +50,15 @@ public class Candidatura {
     
     public void setVaga(Vaga vaga){
         this.vaga = vaga;
+    }
+    
+    public void setData(String data)
+    {
+        this.data = data;
+    }
+
+    public String getData()
+    {
+        return this.data;
     }
 }

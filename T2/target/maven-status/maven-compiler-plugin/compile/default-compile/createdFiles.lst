@@ -11,16 +11,20 @@ br\ufscar\dc\dsw\controller\VagaController.class
 br\ufscar\dc\dsw\domain\Usuario.class
 br\ufscar\dc\dsw\config\WebSecurityConfig.class
 br\ufscar\dc\dsw\conversor\EmpresaConversor.class
+br\ufscar\dc\dsw\service\impl\ProfissionalService.class
 br\ufscar\dc\dsw\conversor\VagaConversor.class
 br\ufscar\dc\dsw\service\spec\IUsuarioService.class
 br\ufscar\dc\dsw\service\impl\EmpresaService.class
 br\ufscar\dc\dsw\security\UsuarioDetails.class
 br\ufscar\dc\dsw\dao\ICandidaturaDAO.class
 br\ufscar\dc\dsw\domain\Candidatura.class
+br\ufscar\dc\dsw\controller\ProfissionalController.class
 br\ufscar\dc\dsw\domain\Vaga.class
 br\ufscar\dc\dsw\service\impl\VagaService.class
+br\ufscar\dc\dsw\service\spec\IProfissionalService.class
 br\ufscar\dc\dsw\domain\AbstractEntity.class
 br\ufscar\dc\dsw\service\spec\ICandidaturaService.class
+br\ufscar\dc\dsw\domain\Profissional.class
 br\ufscar\dc\dsw\security\UsuarioDetailsServiceImpl.class
 br\ufscar\dc\dsw\service\impl\CandidaturaService.class
 br\ufscar\dc\dsw\domain\Empresa.class
@@ -28,5 +32,6 @@ br\ufscar\dc\dsw\VagasTopApplication.class
 br\ufscar\dc\dsw\controller\CandidaturaController.class
 br\ufscar\dc\dsw\dao\IUsuarioDAO.class
 br\ufscar\dc\dsw\dao\IEmpresaDAO.class
+br\ufscar\dc\dsw\dao\IProfissionalDAO.class
 br\ufscar\dc\dsw\controller\EmpresaController.class
 br\ufscar\dc\dsw\controller\ErrorViewController.class

@@ -27,6 +27,6 @@ public interface IUsuarioDAO extends CrudRepository<Usuario, Long> {
 	@Query("SELECT u FROM Usuario u WHERE u.id NOT IN (SELECT e.usuario.id FROM Empresa e) AND u.id NOT IN (SELECT p.usuario.id FROM Profissional p) AND u.role = 'ROLE_EMPR'")
 	List<Usuario> findUsuariosSemEmpresa();
 
-	@Query("SELECT u FROM Usuario u WHERE u.id NOT IN (SELECT p.usuario.id FROM Profissional p) AND u.id NOT IN (SELECT e.usuario.id FROM Empresa e) AND u.role = 'ROLE_FUNC'")
+	@Query("SELECT u FROM Usuario u WHERE u.id NOT IN (SELECT p.usuario.id FROM Profissional p) AND u.id NOT IN (SELECT e.usuario.id FROM Empresa e) AND u.role = 'ROLE_PROF'")
 	List<Usuario> findUsuariosSemProfissional();
 }
