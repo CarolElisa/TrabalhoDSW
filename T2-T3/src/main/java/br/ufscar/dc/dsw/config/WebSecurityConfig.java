@@ -45,7 +45,7 @@ public class WebSecurityConfig {
 		http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests((authz) -> authz
-						.requestMatchers("/api/profissionais/**").permitAll()
+						.requestMatchers("/api/**").permitAll()
 						.requestMatchers("/", "/home").permitAll()
 						.requestMatchers("/vagas/listartodos").permitAll()
 						.requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()

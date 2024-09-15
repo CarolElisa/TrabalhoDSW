@@ -56,12 +56,14 @@ public class VagasTopApplication {
             Empresa empresa1 = new Empresa();
             empresa1.setCnpj("413.808.653-01");
             empresa1.setNome("Empresa Nome");
+            empresa1.setCidade("SaoCarlos");
             empresa1.setUsuario(usuario1); // Link usuario
             empresaDAO.save(empresa1);
 
             Empresa empresa2 = new Empresa();
             empresa2.setCnpj("413.808.653-02");
             empresa2.setNome("Empresa 2");
+            empresa2.setCidade("SaoPaulo");
             empresa2.setUsuario(usuario2); // Link usuario
             empresaDAO.save(empresa2);
 

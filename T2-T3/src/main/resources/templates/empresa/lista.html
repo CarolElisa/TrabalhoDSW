@@ -32,6 +32,7 @@
 							<th>#</th>
 							<th th:text="#{empresa.cnpj.label}"></th>
 							<th th:text="#{empresa.nome.label}"></th>
+							<th th:text="#{empresa.cidade.label}"></th>
 							<th th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
@@ -40,6 +41,7 @@
 							<td th:text="${empresa.id}"></td>
 							<td th:text="${empresa.Cnpj}"></td>
 							<td th:text="${empresa.nome}"></td>
+							<td th:text="${empresa.cidade}"></td>
 							<td colspan="2">
 								<a class="btn btn-info btn-sm" th:href="@{/empresas/editar/{id} (id=${empresa.id}) }"
 									role="button"> 

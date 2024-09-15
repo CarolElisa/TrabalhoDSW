@@ -12,6 +12,7 @@ public interface IEmpresaService {
 
 	Empresa buscarPorCnpj(String cnpj);
 	Empresa buscarPorUsuario(Usuario usuario);
+	Empresa buscarPorCidade(String cidade);
 
 	List<Empresa> buscarTodos();
 
