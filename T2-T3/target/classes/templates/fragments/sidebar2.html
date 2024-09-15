@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<head>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<nav class="sidebar sidebar-open" th:fragment="nav-sidebar">
+		<ul class="nav nav-pills">
+			<li class="nav-item"><a class="nav-link " th:href="@{/home}"> <i
+					class="oi oi-home"></i> <span th:text="#{sidebar.link.home}"></span>
+			</a></li>
+		</ul>
+	</nav>
+</body>
+</html>
