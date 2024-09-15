@@ -15,11 +15,12 @@ public interface IVagaDAO extends CrudRepository<Vaga, Long>{
 	List<Vaga> findAll();
 	
 	Vaga save(Vaga vaga);
-
 	void deleteById(Long id);
 
 	List<Vaga> findByEmpresa(Empresa empresa);
 
-	@Query("select v from Vaga v where id not in (select c.vaga_id from Candidatura c where c.profissional_id not in (:id)) ")
-	List<Vaga> findJobWithoutApply(Long id);
+	@Query("select v from Vaga v " +
+	"left join Candidatura c on c.vaga.id = v.id and c.profissional.id = :profissionalId " +
+	"where c is null")
+List<Vaga> findJobWithoutApply(Long profissionalId);
 }

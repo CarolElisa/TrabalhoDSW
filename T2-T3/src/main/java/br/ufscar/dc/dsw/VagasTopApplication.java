@@ -65,7 +65,7 @@ public class VagasTopApplication {
             empresa2.setUsuario(usuario2); // Link usuario
             empresaDAO.save(empresa2);
 
-            // Retrieve the saved Empresa entities
+            
             Empresa savedEmpresa1 = empresaDAO.findByCnpj("413.808.653-01");
             Empresa savedEmpresa2 = empresaDAO.findByCnpj("413.808.653-02");
 
@@ -129,11 +129,6 @@ public class VagasTopApplication {
             candidatura1.setData("01/01/2024");
             candidaturaDAO.save(candidatura1);
 
-            Candidatura candidatura2 = new Candidatura();
-            candidatura2.setProfissional(profissional2);
-            candidatura2.setVaga(vaga2);
-            candidatura2.setData("02/02/2024");
-            candidaturaDAO.save(candidatura2);
 
 		};
             

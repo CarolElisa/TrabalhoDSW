@@ -51,7 +51,7 @@ public class VagaService implements IVagaService {
 	@Transactional
 	public List<Vaga> buscarSemInscricao(Long id)
 	{
-		return dao.findJobWithoutApply(id);
+		return  dao.findJobWithoutApply(id);
 	}
 	
 }

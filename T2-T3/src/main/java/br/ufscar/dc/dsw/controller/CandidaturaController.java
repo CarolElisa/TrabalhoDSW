@@ -1,6 +1,9 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.security.Principal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import jakarta.validation.Valid;
@@ -22,6 +25,7 @@ import br.ufscar.dc.dsw.domain.Empresa;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.domain.Profissional;
 import br.ufscar.dc.dsw.service.impl.UsuarioService;
+import br.ufscar.dc.dsw.service.impl.VagaService;
 import br.ufscar.dc.dsw.service.spec.IEmpresaService;
 import br.ufscar.dc.dsw.service.spec.ICandidaturaService;
 import br.ufscar.dc.dsw.service.spec.IProfissionalService;
@@ -42,10 +46,16 @@ public class CandidaturaController {
 	@Autowired
 	private ICandidaturaService candidaturaService;
 
+	@Autowired
+		VagaService vagaService;
+
 	@GetMapping("/cadastrar")
 	public String cadastrar(ModelMap model, Candidatura candidatura, Principal principal) {
 		String username = principal.getName();
 		Usuario usuario = usuarioService.buscarPorUsername(username);
+
+	
+		
 		if(usuario == null)
 		{
 			throw new UsernameNotFoundException("USER NOT FOUND!");
@@ -53,11 +63,11 @@ public class CandidaturaController {
 		Profissional profissional = profissionalService.buscarPorUsuario(usuario);
 
 		String data = "01/01/2020";
-		model.addAttribute("vagas", vagaService.buscarSemInscricao(usuario.getId()));
+	
+		model.addAttribute("vagas", vagaService.buscarSemInscricao(profissional.getId()));
 		candidatura.setProfissional(profissional);
 		candidatura.setData(data);
 
-		
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("data", data);
 
@@ -102,7 +112,11 @@ public class CandidaturaController {
 			return "candidatura/cadastro";
 		}
 		candidatura.setProfissional(profissional);
-		candidatura.setData("hoje");
+        Calendar dia = Calendar.getInstance();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = sdf.format(dia.getTime());
+		candidatura.setData(formattedDate);
 		
 		candidaturaService.salvar(candidatura);
 		attr.addFlashAttribute("sucess", "candidatura.create.sucess");
@@ -132,7 +146,7 @@ public class CandidaturaController {
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
 		candidaturaService.excluir(id);
 		attr.addFlashAttribute("sucess", "candidatura.delete.sucess");
-		return "redirect:/vagas/listar";
+		return "redirect:/candidaturas/listar";
 	}
 
 	@ModelAttribute("empresas")

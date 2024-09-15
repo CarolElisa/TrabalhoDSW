@@ -60,7 +60,7 @@
 			</ul>
 		</div>
 
-		<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EMPR')">
+		<div sec:authorize="hasAnyRole('ROLE_EMPR')">
 			<ul class="nav nav-pills">
 				<li class="nav-item">
 					<span class="nav-link active" th:text="#{sidebar.nome.vaga}"></span>

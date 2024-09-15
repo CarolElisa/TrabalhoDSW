@@ -86,6 +86,7 @@ public class VagaController {
             throw new RuntimeException("Usuário não vinculado a uma empresa.");
         }
 
+
         vaga.setEmpresa(empresa); // Garante que a vaga esteja associada à empresa correta
 
         vagaService.salvar(vaga);
@@ -100,12 +101,20 @@ public class VagaController {
     }
 
     @PostMapping("/editar")
-    public String editar(@Valid Vaga vaga, BindingResult result, RedirectAttributes attr) {
+    public String editar(@Valid Vaga vaga, BindingResult result, RedirectAttributes attr, Principal principal) {
+        String username = principal.getName();
+        Usuario usuario = usuarioService.buscarPorUsername(username);
 
         if (result.hasErrors()) {
             return "vaga/cadastro";
         }
+        Empresa empresa = empresaService.buscarPorUsuario(usuario);
 
+        // Verifica se o usuário está vinculado a uma empresa
+        if (empresa == null) {
+            throw new RuntimeException("Usuário não vinculado a uma empresa.");
+        }  
+        vaga.setEmpresa(empresa);
         vagaService.salvar(vaga);
         attr.addFlashAttribute("success", "vaga.edit.success");
         return "redirect:/vagas/listar";
@@ -133,12 +142,12 @@ public class VagaController {
         }
     
         Empresa empresa = empresaService.buscarPorUsuario(usuario);
-    
+        
         // Verifica se o usuário está vinculado a uma empresa
         if (empresa == null) {
             throw new RuntimeException("Usuário não vinculado a uma empresa.");
         }
-    
+        
         vaga.setEmpresa(empresa); // Define a empresa da vaga automaticamente
         model.addAttribute("vaga", vaga);
         return "vaga/cadastro";

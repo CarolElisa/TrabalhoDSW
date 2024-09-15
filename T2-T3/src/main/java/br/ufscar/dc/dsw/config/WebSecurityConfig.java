@@ -48,7 +48,7 @@ public class WebSecurityConfig {
 						.requestMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
 						.requestMatchers("/candidaturas/**").hasAnyRole("PROF")
 						.requestMatchers("/empresas/**", "/usuarios/**").hasRole("ADMIN")
-						.requestMatchers("/vagas/**").hasAnyRole("ADMIN", "EMPR")
+						.requestMatchers("/vagas/**").hasRole("EMPR")
 						.anyRequest().authenticated())
 				.formLogin((form) -> form
 						.loginPage("/login")
