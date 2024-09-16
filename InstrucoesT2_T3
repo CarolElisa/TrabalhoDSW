@@ -1,0 +1,27 @@
+Para a utilização do sistema:
+Usuário ADMINISTRADOR:
+  username: admin
+  senha: admin
+    Este usuário possui acesso à criação de novos usuários.
+    Através dele, podemos criar usuários do tipo empresa, e do tipo profissional (porém ainda não existirão as entidades Profissional e Empresa, apenas seus respectivos logins)
+    Após a criação do login, podemos atrelar um usuário do tipo Empresa à uma empresa (É necessário criar o usuário com ROLE EMPRESA primeiro), preenchendo seus dados
+    Mesmo processo para criar um profissional (primeiro cria o usuário, depois os dados)
+    Ele também pode listar tudo isso que ele cria.
+
+Usuário EMPRESA:
+  username empr
+  senha: empr
+  Este login representa um usuário que tem a especialização de EMPRESA, ou seja, pode criar novas Vagas, adicionando descrição salário, etc.
+  Pode também listá-las, podendo alterar, excluir ou VERIFICAR CANDIDATURAS (botão azul com um triângulo), onde a empresa pode recusar ou aceitar candidatos que se inscreveram apra sua vaga.
+
+Usuário PROFISSIONAL:
+  username: prof1
+  senha: prof1
+  Este login representa um usuário do tipo PROFISSIONAL, ou seja, ele pode buscar vagas ofertadas pelas empresas, e se candidatar à elas (caso ainda não tenha se candidatado).
+  Além disso, pode acompanhar o status da candidatura, ou cancelar a inscrição.
+
+
+OBS:
+  A relação entre Usuário e Empresa/Profissional é 1 para 1, ou seja, cada usuário tem uma única role, por isso é preciso que exista um usuário "sem função" para criar uma Empresa ou Profissional, com a respectiva ROLE.
+  Um profissional só pode se inscrever para uma vaga uma única vez.
+  
