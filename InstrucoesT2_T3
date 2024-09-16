@@ -36,7 +36,7 @@ Ex de JSON de empresa:
     "nome": "Empresa de Teste", 
     "cnpj": "27.550.191/0001-11",
     "cidade": "Curitiba",
-	  "usuario": {
+    "usuario": {
     "id": 6
   }
 }
