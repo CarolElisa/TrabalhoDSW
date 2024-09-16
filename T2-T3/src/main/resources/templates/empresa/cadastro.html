@@ -55,12 +55,12 @@
 						</div>
 					</div>
 
-					<div class="form-group col-md-6"></div>
+					<div class="form-group col-md-6">
 						<label th:text="#{empresa.cidade.label}" for="cidade"></label> 
-						<input type="text" class="form-control" id="cidade" autofocus="autofocus"
-							th:field="*{cidade}" th:placeholder="#{empresa.cidade.label}"
-							th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
-
+						<input type="text" class="form-control" id="cidade"
+							   th:field="*{cidade}" th:placeholder="#{empresa.cidade.label}"
+							   th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
+					
 						<div class="invalid-feedback">
 							<span th:errors="*{cidade}"></span>
 						</div>

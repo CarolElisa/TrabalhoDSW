@@ -13,6 +13,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "vaga")
 public class Vaga {
@@ -46,10 +48,12 @@ public class Vaga {
     private String status;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
     @ManyToMany(mappedBy = "candidaturas")
+    @JsonIgnore
     private Set<Profissional> profissionais;
 
     // Getters and Setters
