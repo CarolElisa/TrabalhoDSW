@@ -11,6 +11,8 @@ public interface IVagaService {
 	Vaga buscarPorId(Long id);
 	
 	List<Vaga> buscarTodos();
+
+	List<Vaga> buscarPorStatus(String status);
 	
 	void salvar(Vaga vaga);
 	

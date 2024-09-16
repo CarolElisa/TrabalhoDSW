@@ -1,7 +1,6 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.security.Principal;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;

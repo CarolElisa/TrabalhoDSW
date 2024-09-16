@@ -38,6 +38,11 @@ public class VagaService implements IVagaService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<Vaga> buscarPorStatus(String status) {
+		return dao.findByStatus(status);
+	}
+
+	@Transactional(readOnly = true)
 	public List<Vaga> buscarPorEmpresa(Empresa e)
 	{
 		return dao.findByEmpresa(e);

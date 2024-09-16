@@ -96,6 +96,42 @@ public class VagasTopApplication {
             vaga2.setEmpresa(savedEmpresa2); // Link to Empresa
             vagaDAO.save(vaga2);
 
+            Vaga vaga3 = new Vaga();
+            vaga3.setNome("Vaga para QA");
+            vaga3.setNivel("Pleno");
+            vaga3.setDescricao("Precisa-se de um funcionário que saiba trabalhar com Java");
+            vaga3.setAnosContrato(1);
+            vaga3.setSalario(new BigDecimal("3000.00"));
+            vaga3.setDataLim("15/08/2024");
+            vaga3.setCidade("São Carlos");
+            vaga3.setStatus("Fechada");
+            vaga3.setEmpresa(savedEmpresa1); // Link to Empresa
+            vagaDAO.save(vaga3);
+
+            Vaga vaga4 = new Vaga();
+            vaga4.setNome("Vaga para Estágio 2024/1");
+            vaga4.setNivel("Estagiário");
+            vaga4.setDescricao("Precisa-se de um estudante");
+            vaga4.setAnosContrato(1);
+            vaga4.setSalario(new BigDecimal("1200.00"));
+            vaga4.setDataLim("22/03/2024");
+            vaga4.setCidade("Campinas");
+            vaga4.setStatus("Fechada");
+            vaga4.setEmpresa(savedEmpresa2); // Link to Empresa
+            vagaDAO.save(vaga4);
+
+            Vaga vaga5 = new Vaga();
+            vaga5.setNome("Vaga para FrontEnd");
+            vaga5.setNivel("Pleno");
+            vaga5.setDescricao("Precisa-se de conhecimento em JavaScript");
+            vaga5.setAnosContrato(4);
+            vaga5.setSalario(new BigDecimal("8000.00"));
+            vaga5.setDataLim("14/12/2024");
+            vaga5.setCidade("São Carlos");
+            vaga5.setStatus("Aberta");
+            vaga5.setEmpresa(savedEmpresa1); // Link to Empresa
+            vagaDAO.save(vaga5);
+
             // Criar e salvar usuarios profissionais
             Usuario usuarioProfissional1 = new Usuario();
             usuarioProfissional1.setUsername("prof1");

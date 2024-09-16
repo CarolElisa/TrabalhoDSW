@@ -52,7 +52,8 @@ public class VagaController {
     @GetMapping("/listartodos")
     public String listartodos(ModelMap model) {
         
-        model.addAttribute("vagas", vagaService.buscarTodos());
+        String status = "Aberta";
+        model.addAttribute("vagas", vagaService.buscarPorStatus(status));
         return "vaga/listatodos";
     }
     
