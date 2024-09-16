@@ -28,5 +28,16 @@ Usuário PROFISSIONAL:
 
 OBS:
   A relação entre Usuário e Empresa/Profissional é 1 para 1, ou seja, cada usuário tem uma única role, por isso é preciso que exista um usuário "sem função" para criar uma Empresa ou Profissional, com a respectiva ROLE.
-  Um profissional só pode se inscrever para uma vaga uma única vez.
+  Um profissional só pode se inscrever para uma vaga uma única vez. Essa parte vale, inclusive, para o REST API. Na hora de criar o JSON com um novo profissional ou uma nova empresa é preciso certificar que exista um
+usuário não vinculado a nenhuma outra ROLE e vincular seu ID.
+
+Ex de JSON de empresa:
+{ 
+    "nome": "Empresa de Teste", 
+    "cnpj": "27.550.191/0001-11",
+    "cidade": "Curitiba",
+	  "usuario": {
+    "id": 6
+  }
+}
   
